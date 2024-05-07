@@ -1,0 +1,38 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-danzailb-staging-5db22-authRole",
+      "UnauthRoleArn": "arn:aws:iam::992382542493:role/amplify-danzailb-staging-5db22-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::992382542493:role/amplify-danzailb-staging-5db22-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-danzailb-staging-5db22-deployment",
+      "UnauthRoleName": "amplify-danzailb-staging-5db22-unauthRole",
+      "StackName": "amplify-danzailb-staging-5db22",
+      "StackId": "arn:aws:cloudformation:us-east-1:992382542493:stack/amplify-danzailb-staging-5db22/238d6fb0-0183-11ef-a1c2-0affdc3896b5",
+      "AmplifyAppId": "d2l33gunrryye"
+    },
+    "categories": {
+      "auth": {
+        "danzailba477f83e": {},
+        "danzailb": {
+          "userPoolId": "us-east-1_gpzvztGHO",
+          "userPoolName": "app-danza-ilb",
+          "webClientId": "22mao87qo6ljg55uv4go616781",
+          "nativeClientId": "22mao87qo6ljg55uv4go616781"
+        },
+        "danzailbcf35795f": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "AdminQueries21d2b2aa": {
+          "deploymentBucketName": "amplify-danzailb-staging-5db22-deployment",
+          "s3Key": "amplify-builds/AdminQueries21d2b2aa-75726558426e2b316458-build.zip"
+        }
+      },
+      "api": {
+        "AdminQueries": {},
+        "danzailb": {}
+      }
+    }
+  }
+}

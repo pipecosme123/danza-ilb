@@ -1,0 +1,14 @@
+type UsersData @model
+@auth(rules: [{allow: public}]) 
+@key(name: "userNumId", fields: ["numId"], queryField: "userNumId"){
+  id: ID!
+  tipoId: String!
+  numId: Int!
+  nombres: String!
+  apellidos: String!
+  fechaNacimiento: String!
+  genero: String!
+  direccion: String!
+  telefono: String!
+}
+ 

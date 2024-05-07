@@ -12,19 +12,19 @@ export const systemSlice = createSlice({
   name: 'system',
   initialState,
   reducers: {
-    startLoading: ({ loading }) => {
-      loading = true
+    startLoading: (state) => {
+      state.loading = true
     },
-    stopLoading: ({ loading }) => {
-      loading = false
+    stopLoading: (state) => {
+      state.loading = false
     },
-    showAlert: ({ alert }, { payload }) => {
-      alert.status = payload.status;
-      alert.message = payload.message;
+    showAlert: (state, action) => {
+      state.alert.status = action.payload.status;
+      state.alert.message = action.payload.message;
     },
-    hiddenAlert: ({ alert }) => {
-      alert.status = initialState.alert.status;
-      alert.message = initialState.alert.message;
+    hiddenAlert: (state) => {
+      state.alert.status = initialState.alert.status;
+      state.alert.message = initialState.alert.message;
     }
   }
 })

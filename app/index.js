@@ -2,10 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import InputText from '../components/InputText';
 import { useDispatch } from 'react-redux';
-import { Box, Center, Text} from 'native-base';
+import { Box, Center, Text } from 'native-base';
 import Buttons from '../components/Buttons';
 import InputPassword from '../components/InputPassword';
 import { login } from '../store/actions/userThunk';
+import { router } from 'expo-router';
+import InputSearch from '../components/InputSearch';
+import { startLoading } from '../store/reducer/system';
 
 const SignIn = () => {
 
@@ -13,12 +16,15 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(login(data))
+    // dispatch(login(data))
+    router.push('/auth/comfirmPassword')
   }
 
   return (
     <Center w="100%" h="100%">
+
       <Text fontSize={"4xl"} bold>DanzaILB</Text>
+
       <Box w={"100%"} px={10}>
         <InputText
           name={"user"}
@@ -49,6 +55,7 @@ const SignIn = () => {
           placeholder={""}
         />
         <Buttons onPress={handleSubmit(onSubmit)}>Iniciar Sesión</Buttons>
+        <Buttons variant={'outline'} onPress={() => router.push('/auth/searchInfo')}>Registrarse</Buttons>
       </Box>
 
     </Center>
