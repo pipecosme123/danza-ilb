@@ -6,12 +6,22 @@ import { MaterialIcons } from '@expo/vector-icons';
 const InputPassword = ({ name, control, rules, type = "text", label, placeholder }) => {
 
   const [show, setShow] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocus(!isFocus);
+  }
+
+  const styleLabelText = {
+    fontSize: 16,
+    color: isFocus ? 'primary.600' : 'muted.500'
+  }
 
   return (
     <View w={"100%"} mb={2}>
       <FormControl>
         <Stack>
-          <FormControl.Label _text={{ fontSize: 16 }}>{label}</FormControl.Label>
+          <FormControl.Label _text={styleLabelText}>{label}</FormControl.Label>
           <Controller
             control={control}
             rules={rules}
@@ -21,6 +31,8 @@ const InputPassword = ({ name, control, rules, type = "text", label, placeholder
                 type={show ? "text" : "password"}
                 fontSize={20}
                 onChangeText={onChange}
+                onFocus={() => handleFocus()}
+                onBlur={() => handleFocus()}
                 InputRightElement={
                   <Pressable onPress={() => setShow(!show)}>
                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr={5} color="muted.400" />

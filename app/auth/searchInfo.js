@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Center, HStack, Text } from 'native-base'
+import { Box, Center, Flex, HStack, Text } from 'native-base'
 import { useForm } from 'react-hook-form'
 import InputText from '../../components/InputText'
 import IconButtons from '../../components/IconButtons'
@@ -19,36 +19,33 @@ const searchInfo = () => {
   }
 
   return (
-    <Center w="100%" h="100%">
-      <Text fontSize={"4xl"} bold>Registrarse</Text>
+    <Flex justifyContent={'center'} w="100%" h="100%" px={10}>
+      <Text fontSize={"4xl"} textAlign={'center'} bold>Registrarse</Text>
 
-      <Box w={"100%"} px={10}>
-        <HStack space="3" alignItems="center">
-          <Box w={'5/6'}>
-            <InputText
-              name={"identificacion"}
-              control={control}
-              errors={errors.user}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Este campo es requerido"
-                }
-              }}
-              // label={"Usuario:"}
-              placeholder={"Número de identificación"}
-            />
-          </Box>
+      <Text fontSize={"md"}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, modi atque?</Text>
 
-          <Box w={'1/6'}>
-            <IconButtons icon='search' />
-          </Box>
-        </HStack>
+      <Box w={"100%"}>
+        <Box w={'full'}>
+          <InputText
+            name={"identificacion"}
+            type={'numeric'}
+            control={control}
+            errors={errors.user}
+            rules={{
+              required: {
+                value: true,
+                message: "Este campo es requerido"
+              }
+            }}
+            style={{ textAlign: 'center' }}
+            placeholder={"Número de identificación"}
+          />
+        </Box>
 
-        <Buttons onPress={handleSubmit(onSubmit)} >Iniciar Sesión</Buttons>
+        <Buttons onPress={handleSubmit(onSubmit)} >Buscar</Buttons>
 
       </Box>
-    </Center>
+    </Flex>
   )
 }
 

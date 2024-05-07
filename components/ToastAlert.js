@@ -1,20 +1,22 @@
 import React from 'react'
-import { Alert, HStack, Text, VStack } from 'native-base'
+import { Alert, Center, HStack, Text, VStack } from 'native-base'
 
 const ToastAlert = ({ status = "info", message }) => {
   return (
-    <Alert w="100%" variant={'left-accent'} colorScheme={status} status={status}>
-      <VStack space={2} flexShrink={1} w="100%">
-        <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
-          <HStack space={2} flexShrink={1} alignItems="center">
-            <Alert.Icon />
-            <Text>
-              {message}
-            </Text>
+    <Center>
+      <Alert w="90%" variant={'left-accent'} colorScheme={status} status={status}>
+        <VStack space={2} flexShrink={1} w="100%">
+          <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
+            <HStack w={'90%'} space={2} flexShrink={1} alignItems="center">
+              <Alert.Icon />
+              <Text w={'full'}>
+                {message}
+              </Text>
+            </HStack>
           </HStack>
-        </HStack>
-      </VStack>
-    </Alert>
+        </VStack>
+      </Alert>
+    </Center>
   )
 }
 

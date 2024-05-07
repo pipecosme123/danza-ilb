@@ -8,7 +8,7 @@ import { Provider, useSelector } from 'react-redux';
 import { persistor, store } from '../store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import ToastAlert from '../components/ToastAlert';
-import { ROLES } from '../constants/roles';
+import { ROLES } from '../constants';
 
 import amplifyconfig from '../src/amplifyconfiguration.json';
 import Spiner from '../components/Spiner';

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ROLES } from "../../constants/roles";
+import { ROLES } from "../../constants";
 
 const initialState = {
   id: null,

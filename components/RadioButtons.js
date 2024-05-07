@@ -1,21 +1,27 @@
 import React from 'react'
 import { Controller } from 'react-hook-form';
-import { Box, Radio, Text } from 'native-base';
+import { Box, FormControl, Radio, Text } from 'native-base';
 
-const RadioButtons = ({ value, onChange, options }) => {
+const RadioButtons = ({ label, value, onChange, options }) => {
   return (
 
-    <Radio.Group
-      value={value}
-      onChange={nextValue => {
-        onChange(nextValue);
-      }}
-      defaultValue={options[0].value}
-    >
-      {options.map(({ label, value }, index) => (
-        <Radio key={index} value={value} my={1}>{label}</Radio>
-      ))}
-    </Radio.Group>
+    <FormControl>
+      <FormControl.Label>{label}</FormControl.Label>
+      <Radio.Group
+        value={value}
+        onChange={nextValue => {
+          onChange(nextValue);
+        }}
+        defaultValue={options[0].value}
+        display={'flex'}
+        flexDirection={'row'}
+        justifyContent={'space-around'}
+      >
+        {options.map(({ label, value }, index) => (
+          <Radio key={index} value={value} my={1}>{label}</Radio>
+        ))}
+      </Radio.Group>
+    </FormControl>
 
   )
 }

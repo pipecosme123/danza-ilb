@@ -1,11 +1,10 @@
 import axios from "axios";
 import { startLoading, stopLoading } from "../reducer/system"
 import { addDataUser } from "../reducer/userSlice";
-import { ROLES } from "../../constants/roles";
+import { ALERT, ROLES } from "../../constants";
 import { router } from "expo-router";
-import { ALERT } from "../../constants/alerts";
 import { showAlertThunk } from "./systemThunk";
-import { confirmResetPassword, resetPassword, signIn } from "aws-amplify/auth";
+import { signIn } from "aws-amplify/auth";
 import { client } from "../../app/_layout";
 import { userNumId } from "../../src/graphql/queries";
 
@@ -45,6 +44,7 @@ export const getDataToSignUp = ({ identificacion }) => {
 
     try {
       dispatch(startLoading());
+
       const response = await client.graphql({
         query: userNumId,
         variables: { numId: identificacion }
@@ -53,36 +53,25 @@ export const getDataToSignUp = ({ identificacion }) => {
       const items = response.data.userNumId.items;
 
       if (items.length === 0) {
-        dispatch(showAlertThunk({
-          status: ALERT.ERROR,
-          message: "El número de cédula no se encuentra registrado"
-        }))
-      } else {
-        console.log(items);
+        throw new Error('El número de cédula digitado no se encuentra registrado en la base de datos')
       }
 
+      router.replace({
+        pathname: './signUp',
+        params: { info: JSON.stringify(items[0]) }
+      })
+
     } catch (error) {
+      dispatch(showAlertThunk({
+        status: ALERT.ERROR,
+        message: error.message || "Hubo un error, inténtalo más tarde"
+      }))
       console.log(error);
+
     } finally {
       dispatch(stopLoading());
     }
 
-    new Promise(async (resolve, reject) => {
-
-
-
-
-
-    })
-      .then((data) => {
-        console.log(data);
-        // router.replace('/auth/signUp');
-      })
-      .catch(() => {
-
-      })
-      .finally(() => {
-      })
   }
 }
 

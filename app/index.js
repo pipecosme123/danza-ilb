@@ -55,7 +55,8 @@ const SignIn = () => {
           placeholder={""}
         />
         <Buttons onPress={handleSubmit(onSubmit)}>Iniciar Sesión</Buttons>
-        <Buttons variant={'outline'} onPress={() => router.push('/auth/searchInfo')}>Registrarse</Buttons>
+        <Buttons variant={'outline'} onPress={() => router.push('/auth/signUp')}>Registrarse</Buttons>
+        {/* <Buttons variant={'outline'} onPress={() => router.push('/auth/searchInfo')}>Registrarse</Buttons> */}
       </Box>
 
     </Center>

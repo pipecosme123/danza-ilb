@@ -1,11 +1,9 @@
 import { Box, Center, Flex, Heading, Pressable, StatusBar } from 'native-base'
 import React from 'react'
-import Constants from 'expo-constants';
 import { Entypo, AntDesign } from '@expo/vector-icons';
+import { statusBarHeight } from '../constants';
 
 const Header = () => {
-
-  const statusBarHeight = Constants.statusBarHeight;
 
   return (
     <>
