@@ -48,17 +48,9 @@ export const listUsersDatas = /* GraphQL */ `
 export const userNumId = /* GraphQL */ `
   query UserNumId(
     $numId: Int!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUsersDataFilterInput
-    $limit: Int
-    $nextToken: String
   ) {
     userNumId(
       numId: $numId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
     ) {
       items {
         id
@@ -74,7 +66,6 @@ export const userNumId = /* GraphQL */ `
         updatedAt
         __typename
       }
-      nextToken
       __typename
     }
   }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { FormControl, Icon, Input, Stack, View } from 'native-base'
+import { FormControl, Icon, Input, Stack, View, WarningOutlineIcon } from 'native-base'
 import { Controller } from 'react-hook-form';
 
-const InputText = ({ name, control, rules, type = "default", errors, label, style, placeholder, defaultValue = '', leftElement, rightElement }) => {
+const InputText = ({ name, control, rules, type = "default", errors, label, style, placeholder, defaultValue = '', leftElement, isReadOnly = false }) => {
 
   const [isFocus, setIsFocus] = useState(false);
 
@@ -21,32 +21,31 @@ const InputText = ({ name, control, rules, type = "default", errors, label, styl
         <Stack>
           <FormControl.Label _text={styleLabelText}>{label}</FormControl.Label>
           <Controller
+            name={name}
             control={control}
             rules={{ ...rules }}
-            render={({ field: { onChange, ...fields } }) => (
+            render={({ field: { onChange, value, ...fields } }) => (
               <Input
                 {...fields}
-                onChangeText={onChange}
                 keyboardType={type}
                 placeholder={placeholder}
-                fontSize={20}
-                _focus={{
-                  backgroundColor: "info.50"
-                }}
-                backgroundColor={errors ? "error.50" : "muted.50"}
                 defaultValue={defaultValue}
-                style={{ ...style }}
                 InputLeftElement={leftElement}
+                fontSize={20}
+                backgroundColor={errors ? "error.50" : "muted.50"}
+                isReadOnly={isReadOnly}
+                _focus={{ backgroundColor: "info.50" }}
+                style={{ ...style }}
+                onChangeText={onChange}
                 onFocus={() => handleFocus()}
                 onBlur={() => handleFocus()}
               />
             )}
-            name={name}
           />
 
         </Stack>
-        <FormControl.ErrorMessage>
-          Atleast 6 characters are required.
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          {errors?.message}
         </FormControl.ErrorMessage>
       </FormControl>
 

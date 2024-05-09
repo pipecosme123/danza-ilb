@@ -1,18 +1,30 @@
-import React from 'react'
-import { Controller } from 'react-hook-form';
-import { Box, FormControl, Radio, Text } from 'native-base';
+import React, { useEffect, useState } from 'react'
+import { FormControl, Radio } from 'native-base';
 
-const RadioButtons = ({ label, value, onChange, options }) => {
+const RadioButtons = ({ name, label, setValue, options, defaultValue }) => {
+
+  const inputRef = useRef(null);
+
+  const [option, setOption] = useState(options[0].value);
+
+  const onChange = (nextValue) => {
+
+    setOption(nextValue);
+    setValue(name, nextValue)
+  }
+
+  useEffect(() => {
+    setOption(defaultValue)
+  }, [defaultValue]);
+
   return (
-
     <FormControl>
       <FormControl.Label>{label}</FormControl.Label>
       <Radio.Group
-        value={value}
-        onChange={nextValue => {
-          onChange(nextValue);
-        }}
-        defaultValue={options[0].value}
+        ref={inputRef}
+        value={option}
+        onChange={onChange}
+        defaultValue={defaultValue}
         display={'flex'}
         flexDirection={'row'}
         justifyContent={'space-around'}

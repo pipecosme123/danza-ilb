@@ -30,11 +30,15 @@ const searchInfo = () => {
             name={"identificacion"}
             type={'numeric'}
             control={control}
-            errors={errors.user}
+            errors={errors.identificacion}
             rules={{
               required: {
                 value: true,
                 message: "Este campo es requerido"
+              },
+              maxLength: {
+                value: 10,
+                message: "El número de cédula no debe superar los 10 dígitos"
               }
             }}
             style={{ textAlign: 'center' }}

@@ -11,18 +11,18 @@ import { client } from '../_layout';
 import { createUsers } from '../../src/graphql/mutations';
 import { useLocalSearchParams } from 'expo-router';
 import Paragraph from '../../components/Paragraph';
+import InputDate from '../../components/InputDate';
 
 const signUp = () => {
 
-  const { control, handleSubmit, formState: { errors }, watch } = useForm();
-  const [genero, setGenero] = useState('FE');
+  const { control, handleSubmit, formState: { errors }, setValue, watch } = useForm();
   const [info, setInfo] = useState({});
 
   const params = useLocalSearchParams();
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log("0000", data);
     const { tipo_id, num_id, nombre, apellidos, fecha_nacimiento, ddd, direccion, telefono } = data;
 
     try {
@@ -50,7 +50,7 @@ const signUp = () => {
   }
 
   useEffect(() => {
-    // setInfo(JSON.parse(params.info))
+    setInfo(JSON.parse(params.info))
   }, []);
 
   return (
@@ -145,39 +145,26 @@ const signUp = () => {
               defaultValue={info.apellidos}
             />
 
-            <InputText
+            <InputDate
               name={"fechaNacimiento"}
-              control={control}
-              errors={errors.fechaNacimiento}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Este campo es requerido"
-                }
-              }}
               label={"Fecha de nacimiento:"}
-              placeholder={""}
+              setValue={setValue}
             />
 
             <RadioButtons
               name={"genero"}
-              control={control}
-              errors={errors.genero}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Este campo es requerido"
-                }
-              }}
               label={"Género:"}
+              setValue={setValue}
+              value={watch('genero')}
+              defaultValue={info.genero}
               options={[
                 {
                   label: "Femenino",
-                  value: 'FE'
+                  value: 'F'
                 },
                 {
                   label: "Masculino",
-                  value: 'MA'
+                  value: 'M'
                 }
               ]}
             />
@@ -191,6 +178,10 @@ const signUp = () => {
                 required: {
                   value: true,
                   message: "Este campo es requerido"
+                },
+                maxLength: {
+                  value: 10,
+                  message: "El número de celular debe tener máximo 10 dígitos"
                 }
               }}
               label={"Celular:"}

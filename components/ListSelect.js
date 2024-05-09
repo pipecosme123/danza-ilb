@@ -36,7 +36,7 @@ const ListSelect = ({ label, name, control, rules, errors, options, defaultOptio
                 onOpen={() => handleFocus()}
                 onClose={() => handleFocus()}
                 borderColor={isFocus ? 'primary.600': 'muted.300'}
-                backgroundColor={isFocus ? 'info.100': 'muted.100'}
+                backgroundColor={isFocus ? 'info.100': 'muted.50'}
                 _selectedItem={{
                   bg: "primary.200",
                   endIcon: <CheckIcon size="5" />
