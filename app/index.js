@@ -7,17 +7,15 @@ import Buttons from '../components/Buttons';
 import InputPassword from '../components/InputPassword';
 import { login } from '../store/actions/userThunk';
 import { router } from 'expo-router';
-import InputSearch from '../components/InputSearch';
-import { startLoading } from '../store/reducer/system';
 
 const SignIn = () => {
 
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const { control, handleSubmit, formState: { errors }, setValue } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    // dispatch(login(data))
-    router.push('/auth/comfirmPassword')
+    dispatch(login(data))
+    // router.push('/auth/comfirmPassword')
   }
 
   return (
@@ -27,9 +25,9 @@ const SignIn = () => {
 
       <Box w={"100%"} px={10}>
         <InputText
-          name={"user"}
+          name={"username"}
           control={control}
-          errors={errors.user}
+          errors={errors.username}
           rules={{
             required: {
               value: true,
@@ -55,7 +53,6 @@ const SignIn = () => {
           placeholder={""}
         />
         <Buttons onPress={handleSubmit(onSubmit)}>Iniciar Sesión</Buttons>
-        {/* <Buttons variant={'outline'} onPress={() => router.push('/auth/signUp')}>Registrarse</Buttons> */}
         <Buttons variant={'outline'} onPress={() => router.push('/auth/searchInfo')}>Registrarse</Buttons>
       </Box>
 

@@ -3,17 +3,18 @@ import { ROLES } from "../../constants";
 
 const initialState = {
   id: null,
+  username: null,
   identification: null,
   firstName: null,
   lastName: null,
   role: ROLES.DESCONECTADO
 }
 
-export const getDataUser = createAsyncThunk('user/getData', async ()=>{
+export const getDataUser = createAsyncThunk('user/getData', async () => {
   // const response = axios
 })
 
-export const userSlice = createSlice({
+export const users = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -22,10 +23,13 @@ export const userSlice = createSlice({
     },
     deleteDataUser: (state) => {
       state = initialState
-    }
+    },
+    setUsername: (state, action) => {
+      state.username = action.payload.username
+    },
   }
 });
 
-export const { addDataUser, deleteDataUser } = userSlice.actions;
+export const { addDataUser, deleteDataUser, setUsername } = users.actions;
 
-export default userSlice.reducer;
+export default users.reducer;

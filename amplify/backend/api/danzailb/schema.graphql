@@ -1,9 +1,9 @@
-type UsersData @model
-@auth(rules: [{allow: public}]) 
-@key(name: "userNumId", fields: ["numId"], queryField: "userNumId"){
+type Users @model 
+@auth(rules: [{ allow: public }]) 
+@key(name: "byNumId", fields: ["numId"], queryField: "getByNumId"){
   id: ID!
   tipoId: String!
-  numId: Int!
+  numId: String!
   nombres: String!
   apellidos: String!
   fechaNacimiento: String!
@@ -11,4 +11,3 @@ type UsersData @model
   direccion: String!
   telefono: String!
 }
- 

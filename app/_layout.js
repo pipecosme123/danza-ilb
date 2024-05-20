@@ -29,7 +29,7 @@ export default () => {
 
 const RootLayout = () => {
 
-  const user = useSelector(({ user }) => user);
+  const { role } = useSelector(({ users }) => users);
   const { loading } = useSelector(({ system }) => system);
   const { alert } = useSelector(({ system }) => system);
 
@@ -47,12 +47,12 @@ const RootLayout = () => {
   }, [alert]);
 
   useEffect(() => {
-    if (user.role === ROLES.DESCONECTADO) {
+    if (role === ROLES.DESCONECTADO) {
       router.replace('/');
     } else {
       router.replace('/(protected)');
     }
-  }, [user]);
+  }, [role]);
 
   return (
     <NativeBaseProvider>

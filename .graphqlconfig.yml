@@ -1,5 +1,5 @@
 projects:
-  danzailb:
+  danzailb-staging:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
@@ -10,6 +10,9 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
+        region: us-east-1
+        apiId: f475l4evvjghzgv3oihbpqwt6a
+        maxDepth: 2
 extensions:
   amplify:
     version: 3

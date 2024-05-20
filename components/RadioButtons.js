@@ -3,28 +3,23 @@ import { FormControl, Radio } from 'native-base';
 
 const RadioButtons = ({ name, label, setValue, options, defaultValue }) => {
 
-  const inputRef = useRef(null);
-
-  const [option, setOption] = useState(options[0].value);
+  const [option, setOption] = useState(defaultValue);
 
   const onChange = (nextValue) => {
-
     setOption(nextValue);
     setValue(name, nextValue)
   }
 
   useEffect(() => {
-    setOption(defaultValue)
-  }, [defaultValue]);
+    setValue(name, defaultValue)
+  }, []);
 
   return (
     <FormControl>
       <FormControl.Label>{label}</FormControl.Label>
       <Radio.Group
-        ref={inputRef}
-        value={option}
         onChange={onChange}
-        defaultValue={defaultValue}
+        defaultValue={option}
         display={'flex'}
         flexDirection={'row'}
         justifyContent={'space-around'}

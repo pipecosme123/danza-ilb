@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUsersData = /* GraphQL */ `
-  query GetUsersData($id: ID!) {
-    getUsersData(id: $id) {
+export const getUsers = /* GraphQL */ `
+  query GetUsers($id: ID!) {
+    getUsers(id: $id) {
       id
       tipoId
       numId
@@ -19,13 +19,13 @@ export const getUsersData = /* GraphQL */ `
     }
   }
 `;
-export const listUsersDatas = /* GraphQL */ `
-  query ListUsersDatas(
-    $filter: ModelUsersDataFilterInput
+export const listUserss = /* GraphQL */ `
+  query ListUserss(
+    $filter: ModelUsersFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listUsersDatas(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUserss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         tipoId
@@ -45,13 +45,9 @@ export const listUsersDatas = /* GraphQL */ `
     }
   }
 `;
-export const userNumId = /* GraphQL */ `
-  query UserNumId(
-    $numId: Int!
-  ) {
-    userNumId(
-      numId: $numId
-    ) {
+export const getByNumId = /* GraphQL */ `
+  query GetByNumId($numId: String!) {
+    getByNumId(numId: $numId) {
       items {
         id
         tipoId
@@ -66,6 +62,7 @@ export const userNumId = /* GraphQL */ `
         updatedAt
         __typename
       }
+      nextToken
       __typename
     }
   }

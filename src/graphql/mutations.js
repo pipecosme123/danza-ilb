@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUsersData = /* GraphQL */ `
-  mutation CreateUsersData(
-    $input: CreateUsersDataInput!
-    $condition: ModelUsersDataConditionInput
+export const createUsers = /* GraphQL */ `
+  mutation CreateUsers(
+    $input: CreateUsersInput!
+    $condition: ModelUsersConditionInput
   ) {
-    createUsersData(input: $input, condition: $condition) {
+    createUsers(input: $input, condition: $condition) {
       id
       tipoId
       numId
@@ -22,12 +22,12 @@ export const createUsersData = /* GraphQL */ `
     }
   }
 `;
-export const updateUsersData = /* GraphQL */ `
-  mutation UpdateUsersData(
-    $input: UpdateUsersDataInput!
-    $condition: ModelUsersDataConditionInput
+export const updateUsers = /* GraphQL */ `
+  mutation UpdateUsers(
+    $input: UpdateUsersInput!
+    $condition: ModelUsersConditionInput
   ) {
-    updateUsersData(input: $input, condition: $condition) {
+    updateUsers(input: $input, condition: $condition) {
       id
       tipoId
       numId
@@ -43,12 +43,12 @@ export const updateUsersData = /* GraphQL */ `
     }
   }
 `;
-export const deleteUsersData = /* GraphQL */ `
-  mutation DeleteUsersData(
-    $input: DeleteUsersDataInput!
-    $condition: ModelUsersDataConditionInput
+export const deleteUsers = /* GraphQL */ `
+  mutation DeleteUsers(
+    $input: DeleteUsersInput!
+    $condition: ModelUsersConditionInput
   ) {
-    deleteUsersData(input: $input, condition: $condition) {
+    deleteUsers(input: $input, condition: $condition) {
       id
       tipoId
       numId

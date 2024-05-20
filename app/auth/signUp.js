@@ -12,6 +12,7 @@ import { createUsers } from '../../src/graphql/mutations';
 import { useLocalSearchParams } from 'expo-router';
 import Paragraph from '../../components/Paragraph';
 import InputDate from '../../components/InputDate';
+import { login, signUpUsers } from '../../store/actions/userThunk';
 
 const signUp = () => {
 
@@ -21,36 +22,22 @@ const signUp = () => {
   const params = useLocalSearchParams();
   const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
-    console.log("0000", data);
-    const { tipo_id, num_id, nombre, apellidos, fecha_nacimiento, ddd, direccion, telefono } = data;
-
-    try {
-      const newUsers = await client.graphql({
-        query: createUsers,
-        variables: {
-          input: {
-            "tipo_id": tipo_id,
-            "num_id": num_id,
-            "nombre": nombre,
-            "apellido": apellidos,
-            "fecha_nacimiento": fecha_nacimiento,
-            "genero": "masculino",
-            "direccion": direccion,
-            "telefono": telefono,
-          }
-        }
-      });
-
-      console.log(newUsers);
-    } catch (error) {
-      console.log(error);
-    }
-
+  const onSubmit = (data) => {
+    console.log({ data });
+    dispatch(signUpUsers(data));
   }
 
   useEffect(() => {
-    setInfo(JSON.parse(params.info))
+    const data = JSON.parse(params.info)
+    setInfo(data);
+    setValue('tipoId', data.tipoId);
+    setValue('numId', data.numId);
+    setValue('nombres', data.nombres);
+    setValue('apellidos', data.apellidos);
+    setValue('fechaNacimiento', data.fechaNacimiento);
+    setValue('genero', data.genero);
+    setValue('telefono', data.telefono);
+    setValue('direccion', data.direccion);
   }, []);
 
   return (
@@ -100,7 +87,7 @@ const signUp = () => {
             />
 
             <InputText
-              name={"numId"}
+              name={'numId'}
               type={'numeric'}
               control={control}
               errors={errors.numId}
@@ -116,9 +103,9 @@ const signUp = () => {
             />
 
             <InputText
-              name={"nombre"}
+              name={'nombres'}
               control={control}
-              errors={errors.nombre}
+              errors={errors.nombres}
               rules={{
                 required: {
                   value: true,
@@ -131,7 +118,7 @@ const signUp = () => {
             />
 
             <InputText
-              name={"apellidos"}
+              name={'apellidos'}
               control={control}
               errors={errors.apellidos}
               rules={{
@@ -145,32 +132,37 @@ const signUp = () => {
               defaultValue={info.apellidos}
             />
 
-            <InputDate
-              name={"fechaNacimiento"}
-              label={"Fecha de nacimiento:"}
-              setValue={setValue}
-            />
+            {info.fechaNacimiento &&
+              <InputDate
+                name={'fechaNacimiento'}
+                label={"Fecha de nacimiento:"}
+                setValue={setValue}
+                defaultDate={info.fechaNacimiento}
+              />
+            }
 
-            <RadioButtons
-              name={"genero"}
-              label={"Género:"}
-              setValue={setValue}
-              value={watch('genero')}
-              defaultValue={info.genero}
-              options={[
-                {
-                  label: "Femenino",
-                  value: 'F'
-                },
-                {
-                  label: "Masculino",
-                  value: 'M'
-                }
-              ]}
-            />
+            {info.genero &&
+              <RadioButtons
+                name={'genero'}
+                label={"Género:"}
+                setValue={setValue}
+                value={watch('genero')}
+                defaultValue={info.genero}
+                options={[
+                  {
+                    label: "Femenino",
+                    value: 'F'
+                  },
+                  {
+                    label: "Masculino",
+                    value: 'M'
+                  }
+                ]}
+              />
+            }
 
             <InputText
-              name={"telefono"}
+              name={'telefono'}
               type='phone-pad'
               control={control}
               errors={errors.telefono}
@@ -191,7 +183,7 @@ const signUp = () => {
             />
 
             <InputText
-              name={"direccion"}
+              name={'direccion'}
               control={control}
               errors={errors.direccion}
               rules={{
@@ -205,8 +197,41 @@ const signUp = () => {
               defaultValue={info.direccion}
             />
 
+            <InputText
+              name={'correo'}
+              control={control}
+              errors={errors.correo}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Este campo es requerido"
+                },
+                pattern: {
+                  value: /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "El correo electrónico no es válido"
+                }
+              }}
+              label={"Correo Electrónico:"}
+              placeholder={"ejemplo@dominio.com"}
+            />
+
+            <InputText
+              name={'username'}
+              control={control}
+              errors={errors.username}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Este campo es requerido"
+                }
+              }}
+              label={"Nombre de usuario:"}
+              placeholder={""}
+            />
+
           </Box>
           <Buttons onPress={handleSubmit(onSubmit)}>Iniciar Sesión</Buttons>
+          {/* <Buttons onPress={}>Iniciar Sesión</Buttons> */}
         </Box>
       </Box>
     </ScrollView>

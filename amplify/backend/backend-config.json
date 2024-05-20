@@ -1,27 +1,5 @@
 {
   "api": {
-    "AdminQueries": {
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "danzailbcf35795f"
-        },
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "AdminQueries21d2b2aa"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "danzailb": {
       "dependsOn": [],
       "output": {
@@ -45,7 +23,7 @@
     }
   },
   "auth": {
-    "danzailbcf35795f": {
+    "danzailb": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -54,13 +32,23 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
+          "passwordPolicyCharacters": [
+            "REQUIRES_NUMBERS"
+          ],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "NAME",
+          "FAMILY_NAME",
+          "BIRTHDATE",
+          "GENDER",
+          "PHONE_NUMBER",
+          "EMAIL",
+          "PICTURE"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
         "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
@@ -68,86 +56,29 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    },
-    "userPoolGroups": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "danzailbcf35795f"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito-UserPool-Groups"
     }
   },
   "function": {
-    "AdminQueries21d2b2aa": {
+    "addUserToGroup": {
       "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "danzailbcf35795f"
-        }
-      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_auth_danzailb_nativeClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "danzailb"
-        }
-      ]
-    },
-    "AMPLIFY_auth_danzailb_userPoolId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "danzailb"
-        }
-      ]
-    },
-    "AMPLIFY_auth_danzailb_userPoolName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "danzailb"
-        }
-      ]
-    },
-    "AMPLIFY_auth_danzailb_webClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "danzailb"
-        }
-      ]
-    },
-    "AMPLIFY_function_AdminQueries21d2b2aa_deploymentBucketName": {
+    "AMPLIFY_function_addUserToGroup_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueries21d2b2aa"
+          "resourceName": "addUserToGroup"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueries21d2b2aa_s3Key": {
+    "AMPLIFY_function_addUserToGroup_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueries21d2b2aa"
+          "resourceName": "addUserToGroup"
         }
       ]
     }

@@ -10,3 +10,8 @@ export const birthdayFormat = (fecha) => {
   const month = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   return `${newDate.getDate()} / ${month[newDate.getMonth()]} / ${newDate.getFullYear()}`;
 }
+
+export const dateFormatCognito = (fecha) => {
+  const newDate = new Date(fecha);
+  return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+}

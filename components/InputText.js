@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormControl, Icon, Input, Stack, View, WarningOutlineIcon } from 'native-base'
 import { Controller } from 'react-hook-form';
 
@@ -27,6 +27,7 @@ const InputText = ({ name, control, rules, type = "default", errors, label, styl
             render={({ field: { onChange, value, ...fields } }) => (
               <Input
                 {...fields}
+                value={value}
                 keyboardType={type}
                 placeholder={placeholder}
                 defaultValue={defaultValue}
