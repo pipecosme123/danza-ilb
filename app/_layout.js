@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import { Slot, useRouter } from 'expo-router';
+import { Slot, router, useRootNavigationState } from 'expo-router';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import { NativeBaseProvider, Box, Toast } from "native-base";
 import { Provider, useSelector } from 'react-redux';
-
 import { persistor, store } from '../store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+
 import ToastAlert from '../components/ToastAlert';
-import { ROLES } from '../constants';
 
 import amplifyconfig from '../src/amplifyconfiguration.json';
 import Spiner from '../components/Spiner';
+import { ROLES, statusBarHeight } from '../constants';
 
 Amplify.configure(amplifyconfig);
 export const client = generateClient();
@@ -29,11 +29,21 @@ export default () => {
 
 const RootLayout = () => {
 
-  const { role } = useSelector(({ users }) => users);
-  const { loading } = useSelector(({ system }) => system);
-  const { alert } = useSelector(({ system }) => system);
+  const { loading, alert } = useSelector(({ system }) => system);
 
-  const router = useRouter();
+  const { role } = useSelector(({ users }) => users);
+  const rootNavigationState = useRootNavigationState();
+  const navigatorReady = rootNavigationState?.key != null;
+
+  useEffect(() => {
+    if (navigatorReady) {
+      if (role !== ROLES.DESCONECTADO) {
+        router.replace('/(protected)');
+      }else{
+        router.replace('/(app)');
+      }
+    }
+  }, [navigatorReady, role]);
 
   useEffect(() => {
     if (alert.status !== null) {
@@ -46,17 +56,9 @@ const RootLayout = () => {
     }
   }, [alert]);
 
-  useEffect(() => {
-    if (role === ROLES.DESCONECTADO) {
-      router.replace('/');
-    } else {
-      router.replace('/(protected)');
-    }
-  }, [role]);
-
   return (
     <NativeBaseProvider>
-      <Box w={'full'} h={'full'} bg={'muted.50'}>
+      <Box w={'full'} h={'full'} bg={'muted.50'} mt={statusBarHeight}>
         {loading && <Spiner />}
         <Slot />
       </Box>

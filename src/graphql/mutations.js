@@ -16,6 +16,8 @@ export const createUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      registerCognito
+      sendCodeTime
       createdAt
       updatedAt
       __typename
@@ -37,6 +39,8 @@ export const updateUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      registerCognito
+      sendCodeTime
       createdAt
       updatedAt
       __typename
@@ -58,6 +62,8 @@ export const deleteUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      registerCognito
+      sendCodeTime
       createdAt
       updatedAt
       __typename

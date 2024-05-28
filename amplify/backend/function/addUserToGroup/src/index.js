@@ -1,23 +1,25 @@
-const aws = require('aws-sdk');
-/**
- * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
- */
-exports.handler = async (event, context, callback) => {
+const {CognitoIdentityProviderClient, AdminAddUserToGroupCommand} = require("@aws-sdk/client-cognito-identity-provider");
 
-    const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider();
+exports.handler = async (event, context, callback) => {
+    
+    const { userName, groupName } = event;
+
+    const Cognito = new CognitoIdentityProviderClient({
+        region: 'us-east-1'
+    });
 
     const params = {
-        GroupName: event.groupName || 'ministro',
+        GroupName: groupName || 'ministro',
         UserPoolId: "us-east-1_oGKLorYnG",
-        Username: event.userName,
+        Username: userName
+    }
+    
+    try {
+        const addUser = new AdminAddUserToGroupCommand(params);
+        await Cognito.send(addUser);
+        callback(null, event)
+    } catch (e) {
+        callback(e);
     }
 
-    if (!(event.request.userAttributes["cognito:user_status"] === "CONFIRMED" && event.request.userAttributes.email_verified === "true")) {
-        callback("User was not properly confirmed and/or email not verified")
-    }
-
-    cognitoidentityserviceprovider.adminAddUserToGroup(params, (err) => {
-        if (err) { callback(err) }
-        callback(null, event);
-    })
 };

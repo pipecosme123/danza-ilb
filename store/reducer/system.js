@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
+  codeTime: null,
   alert: {
     status: null,
     message: null
@@ -25,10 +26,13 @@ export const systemSlice = createSlice({
     hiddenAlert: (state) => {
       state.alert.status = initialState.alert.status;
       state.alert.message = initialState.alert.message;
+    },
+    setCodeTime: (state, action)=>{
+      state.codeTime= action.payload.sendCodeTime
     }
   }
 })
 
-export const { startLoading, stopLoading, showAlert, hiddenAlert } = systemSlice.actions;
+export const { startLoading, stopLoading, showAlert, hiddenAlert, setCodeTime } = systemSlice.actions;
 
 export default systemSlice.reducer;

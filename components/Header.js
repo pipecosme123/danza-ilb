@@ -8,9 +8,22 @@ const Header = () => {
   return (
     <>
       <StatusBar backgroundColor={'#000000'} />
-      <Flex flexDirection={'row'} justifyContent={'center'}>
-        <Box
-          w={'95%'}
+      <Flex
+        h={'70px'}
+        w={'full'}
+        m={0}
+        px={5}
+        py={0}
+        bg={'light.100'}
+        flexDirection={'row'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+        borderBottomWidth={1}
+        borderBottomColor={'muted.200'} 
+        // shadow={1}
+        >
+        {/* <Box
+          // w={'95%'}
           h={'full'}
           mb={2}
           mt={statusBarHeight}
@@ -25,20 +38,20 @@ const Header = () => {
           borderBottomColor={'blue.400'}
           borderBottomRadius={20}
           shadow={3}
+        > */}
+        {/* <Pressable
+          w={'40%'}
+          pl={2}
+          h={'full'}
+          display={'flex'}
+          flexDirection={'row'}
+          alignItems={'center'}
         >
-          <Pressable
-            w={'40%'}
-            pl={2}
-            h={'full'}
-            display={'flex'}
-            flexDirection={'row'}
-            alignItems={'center'}
-          >
-            <AntDesign name="arrowleft" size={24} style={{ paddingRight: 8 }} color="black" />
-            <Heading color={'gray.800'}>Header</Heading>
-          </Pressable>
-          <Entypo name="dots-three-vertical" size={24} color="black" />
-        </Box>
+        </Pressable> */}
+          <AntDesign name="arrowleft" size={24} style={{ paddingRight: 8 }} color={'#475569'} />
+          {/* <Heading bg={"amber.100"} m={0} color={'gray.800'}>Header</Heading> */}
+        {/* <Entypo name="dots-three-vertical" size={24} color="black" /> */}
+        {/* </Box> */}
       </Flex>
     </>
   )

@@ -1,6 +1,4 @@
-type Users @model 
-@auth(rules: [{ allow: public }]) 
-@key(name: "byNumId", fields: ["numId"], queryField: "getByNumId"){
+type Users @model @auth(rules: [{allow: public}]) @key(name: "byNumId", fields: ["numId"], queryField: "getByNumId") {
   id: ID!
   tipoId: String!
   numId: String!
@@ -10,4 +8,7 @@ type Users @model
   genero: String!
   direccion: String!
   telefono: String!
+  registerCognito: Boolean
+  sendCodeTime: AWSTime
 }
+ 

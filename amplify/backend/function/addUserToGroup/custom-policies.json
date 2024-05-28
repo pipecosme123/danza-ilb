@@ -1,6 +1,6 @@
 [
   {
-    "Action": [],
-    "Resource": []
+    "Action": ["cognito-idp:AdminAddUserToGroup"],
+    "Resource": ["arn:aws:cognito-idp:us-east-1:992382542493:userpool/us-east-1_oGKLorYnG"]
   }
 ]

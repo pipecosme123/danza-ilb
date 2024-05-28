@@ -4,29 +4,32 @@ import { ROLES } from "../../constants";
 const initialState = {
   id: null,
   username: null,
-  identification: null,
-  firstName: null,
+  name: null,
   lastName: null,
   role: ROLES.DESCONECTADO
 }
-
-export const getDataUser = createAsyncThunk('user/getData', async () => {
-  // const response = axios
-})
 
 export const users = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     addDataUser: (state, action) => {
-      state = action.payload
+      state.id = action.payload.id;
+      state.username = action.payload.username;
+      state.name = action.payload.name;
+      state.lastName = action.payload.lastName;
+      state.role = action.payload.role;
     },
     deleteDataUser: (state) => {
-      state = initialState
+      state.id = null;
+      state.username = null;
+      state.name = null;
+      state.lastName = null;
+      state.role = ROLES.DESCONECTADO;
     },
     setUsername: (state, action) => {
       state.username = action.payload.username
-    },
+    }
   }
 });
 

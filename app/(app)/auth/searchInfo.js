@@ -1,13 +1,10 @@
 import React from 'react'
-import { Box, Center, Flex, HStack, Text } from 'native-base'
+import { Box, Flex, Text } from 'native-base'
 import { useForm } from 'react-hook-form'
-import InputText from '../../components/InputText'
-import IconButtons from '../../components/IconButtons'
-import Buttons from '../../components/Buttons'
-import { userNumId } from '../../src/graphql/queries'
-import { client } from '../_layout'
+import InputText from '../../../components/InputText'
+import Buttons from '../../../components/Buttons'
 import { useDispatch } from 'react-redux'
-import { getDataToSignUp } from '../../store/actions/userThunk'
+import { getDataToSignUp } from '../../../store/actions/userThunk'
 
 const searchInfo = () => {
 

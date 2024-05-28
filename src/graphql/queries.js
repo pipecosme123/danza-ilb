@@ -13,6 +13,8 @@ export const getUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      registerCognito
+      sendCodeTime
       createdAt
       updatedAt
       __typename
@@ -36,6 +38,8 @@ export const listUserss = /* GraphQL */ `
         genero
         direccion
         telefono
+        registerCognito
+        sendCodeTime
         createdAt
         updatedAt
         __typename
@@ -46,8 +50,20 @@ export const listUserss = /* GraphQL */ `
   }
 `;
 export const getByNumId = /* GraphQL */ `
-  query GetByNumId($numId: String!) {
-    getByNumId(numId: $numId) {
+  query GetByNumId(
+    $numId: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelUsersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getByNumId(
+      numId: $numId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         tipoId
@@ -58,6 +74,8 @@ export const getByNumId = /* GraphQL */ `
         genero
         direccion
         telefono
+        registerCognito
+        sendCodeTime
         createdAt
         updatedAt
         __typename

@@ -1,21 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import InputText from '../components/InputText';
 import { useDispatch } from 'react-redux';
 import { Box, Center, Text } from 'native-base';
-import Buttons from '../components/Buttons';
-import InputPassword from '../components/InputPassword';
-import { login } from '../store/actions/userThunk';
+import { InputText, Buttons, InputPassword } from "../../components";
+import { login } from '../../store/actions/userThunk';
 import { router } from 'expo-router';
 
-const SignIn = () => {
+const LoginUsers = () => {
 
-  const { control, handleSubmit, formState: { errors }, setValue } = useForm();
+  const { control, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     dispatch(login(data))
-    // router.push('/auth/comfirmPassword')
   }
 
   return (
@@ -60,4 +57,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default LoginUsers;

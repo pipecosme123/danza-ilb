@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import InputText from '../../components/InputText'
+import { useLocalSearchParams } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import IconButtons from '../../components/IconButtons';
-import { Box, Center, Divider, Flex, HStack, ScrollView, Select, Text } from 'native-base';
-import ListSelect from '../../components/ListSelect';
-import RadioButtons from '../../components/RadioButtons';
-import Buttons from '../../components/Buttons';
-import { client } from '../_layout';
-import { createUsers } from '../../src/graphql/mutations';
-import { useLocalSearchParams } from 'expo-router';
-import Paragraph from '../../components/Paragraph';
-import InputDate from '../../components/InputDate';
-import { login, signUpUsers } from '../../store/actions/userThunk';
+import { Box, ScrollView, Text } from 'native-base';
+import { InputText, ListSelect, RadioButtons, Buttons, Paragraph, InputDate } from '../../../components'; 
+import { signUpUsers } from '../../../store/actions/userThunk';
 
 const signUp = () => {
 
@@ -23,7 +15,6 @@ const signUp = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log({ data });
     dispatch(signUpUsers(data));
   }
 
@@ -38,6 +29,7 @@ const signUp = () => {
     setValue('genero', data.genero);
     setValue('telefono', data.telefono);
     setValue('direccion', data.direccion);
+    setValue('idDynamoDB', data.id);
   }, []);
 
   return (

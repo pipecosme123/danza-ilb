@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Box, Center, Text } from 'native-base'
-import InputText from '../../components/InputText'
-import Buttons from '../../components/Buttons'
+import InputText from '../../../components/InputText'
+import Buttons from '../../../components/Buttons'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { confirmSignUpUser, resendCode } from '../../store/actions/userThunk'
+import { confirmSignUpUser, resendCode } from '../../../store/actions/userThunk'
 import { useLocalSearchParams } from 'expo-router'
 
 const comfirmSignUp = () => {
@@ -18,7 +18,6 @@ const comfirmSignUp = () => {
   }
 
   useEffect(() => {
-    console.log({ resend });
     if (resend === "true") {
       dispatch(resendCode());
     }

@@ -3,8 +3,8 @@ import Constants from 'expo-constants';
 export const statusBarHeight = Constants.statusBarHeight;
 
 export const ROLES = {
-  SUPERADMIN: 'superadmin',
-  ADMIN: 'admin',
+  SUPERADMIN: 'superusuario',
+  LIDER: 'lider',
   INSTRUCTOR: 'instructor',
   REGISTRADOR: 'registrador',
   MINISTRO: 'ministro',

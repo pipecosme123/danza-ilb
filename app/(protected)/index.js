@@ -1,23 +1,34 @@
 import React from 'react'
 import { Link, route } from 'expo-router';
 import { Box, Text, Button } from 'native-base'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../store/actions/userThunk';
 
 const home = () => {
 
-  const user = useSelector(({ user }) => user);
+  // const { name } = useSelector(({ user }) => user);
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(logoutUser());
+  }
+
   return (
     <Box>
       <Text>home</Text>
-      <Text>
-        {user.toString()}
+      {/* <Text>
+        {name}
       </Text>
       <Link href={'/ensayo/registrar/fecha'} asChild>
         <Button colorScheme="primary">
           Primary
         </Button>
 
-      </Link>
+        <Button colorScheme="danger" onPress={() => logout()}>
+          Cerrar Sesión
+        </Button>
+
+      </Link> */}
     </Box>
   )
 }
