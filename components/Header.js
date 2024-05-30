@@ -1,15 +1,22 @@
-import { Box, Center, Flex, Heading, Pressable, StatusBar } from 'native-base'
 import React from 'react'
-import { Entypo, AntDesign } from '@expo/vector-icons';
-import { statusBarHeight } from '../constants';
+import { Flex, IconButton, Pressable } from 'native-base'
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../store/actions/userThunk';
+import { router } from 'expo-router';
 
 const Header = () => {
 
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    dispatch(logoutUser());
+  }
+
   return (
     <>
-      <StatusBar backgroundColor={'#000000'} />
       <Flex
-        h={'70px'}
+        h={'60px'}
         w={'full'}
         m={0}
         px={5}
@@ -19,39 +26,20 @@ const Header = () => {
         alignItems={'center'}
         justifyContent={'space-between'}
         borderBottomWidth={1}
-        borderBottomColor={'muted.200'} 
-        // shadow={1}
-        >
-        {/* <Box
-          // w={'95%'}
-          h={'full'}
-          mb={2}
-          mt={statusBarHeight}
-          pr={5}
-          // py={2}
-          display={'flex'}
-          flexDirection={'row'}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          bg={'white'}
-          borderBottomWidth={1}
-          borderBottomColor={'blue.400'}
-          borderBottomRadius={20}
-          shadow={3}
-        > */}
-        {/* <Pressable
-          w={'40%'}
-          pl={2}
-          h={'full'}
-          display={'flex'}
-          flexDirection={'row'}
-          alignItems={'center'}
-        >
-        </Pressable> */}
+        borderBottomColor={'muted.200'}
+      >
+        <Pressable onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} style={{ paddingRight: 8 }} color={'#475569'} />
-          {/* <Heading bg={"amber.100"} m={0} color={'gray.800'}>Header</Heading> */}
-        {/* <Entypo name="dots-three-vertical" size={24} color="black" /> */}
-        {/* </Box> */}
+        </Pressable>
+        {/* <IconButton
+          size={'lg'}
+          variant="solid"
+          _icon={{
+            as: MaterialIcons,
+            name: 'edit-calendar'
+          }}
+          onPress={() => logout()}
+        /> */}
       </Flex>
     </>
   )

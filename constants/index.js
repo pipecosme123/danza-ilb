@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { generateClient } from 'aws-amplify/api';
 
 export const statusBarHeight = Constants.statusBarHeight;
 
@@ -17,3 +18,5 @@ export const ALERT = {
   SUCCESS: 'success',
   WARNING: 'warning',
 }
+
+export const client = generateClient();

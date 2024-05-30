@@ -5,6 +5,7 @@ import { Box, Center, Text } from 'native-base';
 import { InputText, Buttons, InputPassword } from "../../components";
 import { login } from '../../store/actions/userThunk';
 import { router } from 'expo-router';
+import { signOut } from 'aws-amplify/auth';
 
 const LoginUsers = () => {
 

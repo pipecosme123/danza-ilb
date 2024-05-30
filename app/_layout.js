@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react'
-import { Slot, router, useRootNavigationState } from 'expo-router';
+import React, { useEffect, useState } from 'react'
+import { Slot, router, usePathname, useRootNavigationState } from 'expo-router';
 import { Amplify } from 'aws-amplify';
-import { generateClient } from 'aws-amplify/api';
-import { NativeBaseProvider, Box, Toast } from "native-base";
+import { NativeBaseProvider, Box, Toast, StatusBar } from "native-base";
 import { Provider, useSelector } from 'react-redux';
 import { persistor, store } from '../store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import ToastAlert from '../components/ToastAlert';
-
 import amplifyconfig from '../src/amplifyconfiguration.json';
-import Spiner from '../components/Spiner';
 import { ROLES, statusBarHeight } from '../constants';
+import { ToastAlert, Spiner, Header } from '../components';
 
 Amplify.configure(amplifyconfig);
-export const client = generateClient();
 
 export default () => {
 
@@ -30,16 +25,20 @@ export default () => {
 const RootLayout = () => {
 
   const { loading, alert } = useSelector(({ system }) => system);
-
   const { role } = useSelector(({ users }) => users);
+
+  const [location, setLocation] = useState('/');
+
+  const pathname = usePathname();
   const rootNavigationState = useRootNavigationState();
+
   const navigatorReady = rootNavigationState?.key != null;
 
   useEffect(() => {
     if (navigatorReady) {
       if (role !== ROLES.DESCONECTADO) {
         router.replace('/(protected)');
-      }else{
+      } else {
         router.replace('/(app)');
       }
     }
@@ -56,11 +55,19 @@ const RootLayout = () => {
     }
   }, [alert]);
 
+  useEffect(() => {
+    setLocation(pathname);
+  }, [pathname]);
+
   return (
     <NativeBaseProvider>
+      {loading && <Spiner />}
+      <StatusBar backgroundColor={'#f5f5f4'} />
       <Box w={'full'} h={'full'} bg={'muted.50'} mt={statusBarHeight}>
-        {loading && <Spiner />}
-        <Slot />
+        {location !== '/' && <Header />}
+        <Box h={'70%'}>
+          <Slot />
+        </Box>
       </Box>
     </NativeBaseProvider>
   )
