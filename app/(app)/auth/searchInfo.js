@@ -1,10 +1,12 @@
 import React from 'react'
-import { Box, Flex, Text } from 'native-base'
+import { Box, Text } from 'native-base'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+
 import InputText from '../../../components/InputText'
 import Buttons from '../../../components/Buttons'
-import { useDispatch } from 'react-redux'
-import { getDataToSignUp } from '../../../store/actions/userThunk'
+import { getDataToSignUp } from '../../../store/actions/users'
+import { marginTopShort } from '../../../constants'
 
 const searchInfo = () => {
 
@@ -16,7 +18,7 @@ const searchInfo = () => {
   }
 
   return (
-    <Flex justifyContent={'center'} w="100%" h="100%" px={10}>
+    <Box w="100%" mt={marginTopShort} px={10}>
       <Text fontSize={"4xl"} textAlign={'center'} bold>Registrarse</Text>
 
       <Text fontSize={"md"}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, modi atque?</Text>
@@ -46,7 +48,7 @@ const searchInfo = () => {
         <Buttons onPress={handleSubmit(onSubmit)} >Buscar</Buttons>
 
       </Box>
-    </Flex>
+    </Box>
   )
 }
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Slot, router, usePathname, useRootNavigationState } from 'expo-router';
+import React, { useEffect } from 'react'
+import { Slot, router, useRootNavigationState } from 'expo-router';
 import { Amplify } from 'aws-amplify';
 import { NativeBaseProvider, Box, Toast, StatusBar } from "native-base";
 import { Provider, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { persistor, store } from '../store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import amplifyconfig from '../src/amplifyconfiguration.json';
 import { ROLES, statusBarHeight } from '../constants';
-import { ToastAlert, Spiner, Header } from '../components';
+import { ToastAlert, Spiner } from '../components';
 
 Amplify.configure(amplifyconfig);
 
@@ -27,9 +27,6 @@ const RootLayout = () => {
   const { loading, alert } = useSelector(({ system }) => system);
   const { role } = useSelector(({ users }) => users);
 
-  const [location, setLocation] = useState('/');
-
-  const pathname = usePathname();
   const rootNavigationState = useRootNavigationState();
 
   const navigatorReady = rootNavigationState?.key != null;
@@ -55,19 +52,12 @@ const RootLayout = () => {
     }
   }, [alert]);
 
-  useEffect(() => {
-    setLocation(pathname);
-  }, [pathname]);
-
   return (
     <NativeBaseProvider>
       {loading && <Spiner />}
       <StatusBar backgroundColor={'#f5f5f4'} />
       <Box w={'full'} h={'full'} bg={'muted.50'} mt={statusBarHeight}>
-        {location !== '/' && <Header />}
-        <Box h={'70%'}>
-          <Slot />
-        </Box>
+        <Slot />
       </Box>
     </NativeBaseProvider>
   )

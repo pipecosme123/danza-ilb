@@ -1,7 +1,8 @@
 export { default as Buttons } from "./Buttons";
 export { default as Card } from "./Card";
 export { default as CheckBox } from "./CheckBox";
-export { default as Header } from "./Header";
+export { default as ContainerHome } from "./ContainerHome";
+export { HeaderBack, HeaderHome } from "./Header";
 export { default as IconButtons } from "./IconButtons";
 export { default as InputDate } from "./InputDate";
 export { default as InputPassword } from "./InputPassword";

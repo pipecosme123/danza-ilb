@@ -1,35 +1,64 @@
 import React from 'react'
-import { Link, route } from 'expo-router';
-import { Box, Text, Button } from 'native-base'
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../store/actions/userThunk';
+import { Box, Text, Heading, IconButton, HStack, Pressable } from 'native-base'
+import { AntDesign } from "@expo/vector-icons";
+import capitalizeEachWord from '../../helpers/capitalizeEachWord';
+import { Card, ContainerHome } from '../../components';
+import { Link, router } from 'expo-router';
 
 const home = () => {
 
-  // const { name } = useSelector(({ user }) => user);
+  const { name } = useSelector(({ users }) => users);
   const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch(logoutUser());
-  }
-
   return (
-    <Box>
-      <Text>home</Text>
-      {/* <Text>
-        {name}
-      </Text>
-      <Link href={'/ensayo/registrar/fecha'} asChild>
-        <Button colorScheme="primary">
-          Primary
-        </Button>
+    <ContainerHome>
 
-        <Button colorScheme="danger" onPress={() => logout()}>
-          Cerrar Sesión
-        </Button>
+      <Heading size={'2xl'}>Hola, {capitalizeEachWord(name)}</Heading>
 
-      </Link> */}
-    </Box>
+      <Pressable
+        onPress={() => router.push('/ensayo')}
+      >
+        <Card width='full'>
+          <Heading>Asistencia a Ensayos</Heading>
+          <Card background={"#f1f1f1"} height={32}>
+            <Text>AQUI VA UNA GRÁFICA</Text>
+          </Card>
+          <HStack w={'full'} space={3} justifyContent="space-between">
+            <Box w={'3/5'}>
+              <Text>Lorem ipsum dolor sit amet</Text>
+            </Box>
+            {/* <Box w={'2/5'}> */}
+            <IconButton
+              size={'sm'}
+              variant="outline"
+              _icon={{
+                as: AntDesign,
+                name: 'search1'
+              }}
+              onPress={() => console.log("Buscar")}
+            />
+            {/* </Box> */}
+
+          </HStack>
+
+        </Card>
+      </Pressable>
+
+
+
+      <Card>
+        <Heading>Ministros</Heading>
+      </Card>
+
+      <Card>
+        <Heading>Asistencia a ministrar</Heading>
+      </Card>
+
+      <Card>
+        <Heading>Asistencia a servicios</Heading>
+      </Card>
+    </ContainerHome>
   )
 }
 

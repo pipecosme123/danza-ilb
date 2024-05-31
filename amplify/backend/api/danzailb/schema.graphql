@@ -1,3 +1,9 @@
+enum StateSignUp {
+  NO_REGISTER
+  COMFIRM_SIGNUP
+  DONE
+}
+
 type Users @model @auth(rules: [{allow: public}]) @key(name: "byNumId", fields: ["numId"], queryField: "getByNumId") {
   id: ID!
   tipoId: String!
@@ -8,7 +14,9 @@ type Users @model @auth(rules: [{allow: public}]) @key(name: "byNumId", fields: 
   genero: String!
   direccion: String!
   telefono: String!
-  registerCognito: Boolean
-  sendCodeTime: AWSTime
+  registerCognito: StateSignUp
+  sendCodeTime: AWSDateTime
+  subCognito: String
+  username: String
 }
  

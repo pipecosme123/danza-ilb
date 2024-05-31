@@ -15,6 +15,8 @@ export const getUsers = /* GraphQL */ `
       telefono
       registerCognito
       sendCodeTime
+      subCognito
+      username
       createdAt
       updatedAt
       __typename
@@ -40,6 +42,8 @@ export const listUserss = /* GraphQL */ `
         telefono
         registerCognito
         sendCodeTime
+        subCognito
+        username
         createdAt
         updatedAt
         __typename
@@ -76,6 +80,8 @@ export const getByNumId = /* GraphQL */ `
         telefono
         registerCognito
         sendCodeTime
+        subCognito
+        username
         createdAt
         updatedAt
         __typename

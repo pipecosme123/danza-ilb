@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react'
-import { Box, Center, Text } from 'native-base'
-import InputText from '../../../components/InputText'
-import Buttons from '../../../components/Buttons'
+import { Box, Text } from 'native-base'
+import { useLocalSearchParams } from 'expo-router'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { confirmSignUpUser, resendCode } from '../../../store/actions/userThunk'
-import { useLocalSearchParams } from 'expo-router'
+
+import { InputText, Buttons } from '../../../components'
+import { marginTopShort } from '../../../constants'
+import { confirmSignUpUser, resendConfirmCode } from '../../../store/actions/users';
 
 const comfirmSignUp = () => {
 
   const { control, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
-  const { resend } = useLocalSearchParams();
+  const { resend, username } = useLocalSearchParams();
 
-  const onSubmit = (data) => {
-    dispatch(confirmSignUpUser(data));
+  const onSubmit = ({ code }) => {
+    dispatch(confirmSignUpUser({ code, username }));
   }
 
   useEffect(() => {
     if (resend === "true") {
-      dispatch(resendCode());
+      dispatch(resendConfirmCode({ username }));
     }
   }, []);
 
   return (
-    <Center w="100%" h="100%">
-      <Text fontSize={"4xl"} bold>DanzaILB</Text>
-      <Text fontSize={"4xl"} bold>Verificar Cuenta</Text>
+    <Box w="100%" h="100%" mt={marginTopShort}>
+      <Text textAlign={'center'} fontSize={"4xl"} bold>DanzaILB</Text>
+      <Text textAlign={'center'} fontSize={"4xl"} bold>Verificar Cuenta</Text>
 
       <Box w={"100%"} px={10}>
         <InputText
@@ -47,7 +48,7 @@ const comfirmSignUp = () => {
         <Buttons onPress={handleSubmit(onSubmit)}>Confirmar</Buttons>
       </Box>
 
-    </Center>
+    </Box>
   )
 }
 

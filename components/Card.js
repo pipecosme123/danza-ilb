@@ -1,16 +1,15 @@
 import React from 'react'
 import { Box } from 'native-base'
 
-const Card = ({ width = 'full', height = 'full', children }) => {
+const Card = ({ background = 'white', children, ...props }) => {
   return (
     <Box
-      w={width}
-      h={height}
+      {...props}
       my={2}
-      p={1}
+      p={2}
       border="1"
       borderRadius={'md'}
-      bg={'white'}
+      bg={background}
       shadow={'2'}
     >
       {children}

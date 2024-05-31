@@ -3,8 +3,9 @@ import { useLocalSearchParams } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Box, ScrollView, Text } from 'native-base';
+import { signUpUsers } from '../../../store/actions/users';
 import { InputText, ListSelect, RadioButtons, Buttons, Paragraph, InputDate } from '../../../components'; 
-import { signUpUsers } from '../../../store/actions/userThunk';
+
 
 const signUp = () => {
 
@@ -30,10 +31,11 @@ const signUp = () => {
     setValue('telefono', data.telefono);
     setValue('direccion', data.direccion);
     setValue('idDynamoDB', data.id);
+    setValue('username', data.username);
   }, []);
 
   return (
-    <ScrollView w="100%" h="100%">
+    <ScrollView w="100%" h="100%" mb={10}>
       <Box px={5} pb={15}>
         <Text fontSize={"4xl"} textAlign={'center'} bold>Registrarse</Text>
         <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum maiores nam, odio unde quis natus vel id totam qui dignissimos quasi aliquam laborum soluta assumenda architecto veniam nesciunt odit enim autem incidunt praesentium amet!</Paragraph>

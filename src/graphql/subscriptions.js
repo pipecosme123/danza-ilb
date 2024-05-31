@@ -15,6 +15,8 @@ export const onCreateUsers = /* GraphQL */ `
       telefono
       registerCognito
       sendCodeTime
+      subCognito
+      username
       createdAt
       updatedAt
       __typename
@@ -35,6 +37,8 @@ export const onUpdateUsers = /* GraphQL */ `
       telefono
       registerCognito
       sendCodeTime
+      subCognito
+      username
       createdAt
       updatedAt
       __typename
@@ -55,6 +59,8 @@ export const onDeleteUsers = /* GraphQL */ `
       telefono
       registerCognito
       sendCodeTime
+      subCognito
+      username
       createdAt
       updatedAt
       __typename

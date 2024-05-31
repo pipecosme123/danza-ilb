@@ -1,23 +1,28 @@
-import { Slot } from 'expo-router';
-import { View } from 'native-base';
-import { useSelector } from 'react-redux';
-import { Header } from '../../components';
-import { ROLES } from '../../constants';
+import { useEffect, useState } from 'react';
+import { Slot, usePathname } from 'expo-router';
+import { HeaderBack, HeaderHome } from '../../components';
+import { Box } from 'native-base';
 
 const _layout = () => {
 
-  // const { role } = useSelector(({ users }) => users);
+  const pathname = usePathname();
+  const [location, setLocation] = useState('/');
 
-  // if (role === ROLES.DESCONECTADO) {
-  //   return <Redirect href={'/(app)'} />
-  // }
+  useEffect(() => {
+    setLocation(pathname);
+  }, [pathname]);
 
   return (
     <>
-      <Header />
-      <View px={1}>
+      {location === '/' ? <HeaderHome /> : <HeaderBack />}
+      <Box
+        h={'full'}
+        mb={"40px"}
+        pt={3}
+        px={2}
+      >
         <Slot />
-      </View>
+      </Box>
     </>
   )
 }

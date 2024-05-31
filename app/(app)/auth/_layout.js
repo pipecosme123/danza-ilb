@@ -1,11 +1,13 @@
 import React from 'react'
-import { Box } from 'native-base'
 import { Slot } from 'expo-router'
-import { statusBarHeight } from '../../../constants'
+import { HeaderBack } from '../../../components'
 
 const _layout = () => {
   return (
-    <Slot />
+    <>
+      <HeaderBack />
+      <Slot />
+    </>
   )
 }
 

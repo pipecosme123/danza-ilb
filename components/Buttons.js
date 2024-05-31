@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button } from 'native-base'
 
-const Buttons = ({ onPress, children, size, variant, disabled = false }) => {
+const Buttons = ({ onPress, children, size, variant, disabled = false, ...props }) => {
   return (
     <Button
+      {...props}
       size={size}
       variant={variant}
       isDisabled={disabled}

@@ -23,7 +23,8 @@
         "addUserToGroup": {
           "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
           "s3Key": "amplify-builds/addUserToGroup-6c587335787479497930-build.zip"
-        }
+        },
+        "statusAccountSignUp": {}
       }
     }
   }

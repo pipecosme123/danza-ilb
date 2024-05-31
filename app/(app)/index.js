@@ -2,10 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Box, Center, Text } from 'native-base';
-import { InputText, Buttons, InputPassword } from "../../components";
-import { login } from '../../store/actions/userThunk';
 import { router } from 'expo-router';
-import { signOut } from 'aws-amplify/auth';
+import { login, logoutUser } from '../../store/actions/users';
+import { InputText, Buttons, InputPassword } from "../../components";
 
 const LoginUsers = () => {
 
@@ -14,6 +13,10 @@ const LoginUsers = () => {
 
   const onSubmit = (data) => {
     dispatch(login(data))
+  }
+
+  const out = () => {
+    dispatch(logoutUser())
   }
 
   return (
@@ -51,6 +54,7 @@ const LoginUsers = () => {
           placeholder={""}
         />
         <Buttons onPress={handleSubmit(onSubmit)}>Iniciar Sesión</Buttons>
+        <Buttons onPress={() => out()}>eliminar</Buttons>
         <Buttons variant={'outline'} onPress={() => router.push('/auth/searchInfo')}>Registrarse</Buttons>
       </Box>
 
