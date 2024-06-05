@@ -1,3 +1,22 @@
+enum TipoEnsayo {
+  ACTIVOS
+  FUTUROS
+  ASPIRANTES
+  INFANTIL_FUTUROS
+  INFANTIL_ASPIRANTE
+  INFANTIL_BEBES
+  DIADEMAS_HONRA
+}
+
+type Ensayos @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  fecha: AWSDate!
+  tipo: TipoEnsayo!
+  asistencia: [AWSJSON!]!
+  estadistica: AWSJSON
+  registrador: AWSJSON
+}
+
 enum StateSignUp {
   NO_REGISTER
   COMFIRM_SIGNUP

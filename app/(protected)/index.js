@@ -6,7 +6,7 @@ import capitalizeEachWord from '../../helpers/capitalizeEachWord';
 import { Card, ContainerHome } from '../../components';
 import { Link, router } from 'expo-router';
 
-const home = () => {
+const Home = () => {
 
   const { name } = useSelector(({ users }) => users);
   const dispatch = useDispatch();
@@ -62,4 +62,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home

@@ -1,30 +1,54 @@
 import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router';
-import { Box, Divider, FlatList, Heading, HStack, Text, View, IconButton, Flex } from 'native-base';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Divider, FlatList, Heading, HStack, Text, Icon } from 'native-base';
 import { MaterialIcons } from "@expo/vector-icons";
 
-import dataJSON from '../../../../assets/data.json';
-import CheckBox from '../../../../components/CheckBox';
-import Card from '../../../../components/Card';
 import { dateFormat } from '../../../../helpers/dateFormat';
-import { storeGetAllKeys, storeGetObjectData, storeObjectData } from '../../../../helpers/storage';
+import { Buttons, CheckBox, Card, ContainerHome } from '../../../../components';
+import getDataUsersEnsayos from '../../../../store/actions/ensayos/getDataUsersEnsayos';
 
-const index = () => {
+const ListHeaderComponent = (date, navigateHandleDate) => {
+  return (
+    <Box mb={5}>
+      <Card width={'full'} height={'container'}>
+        <Text>Fecha</Text>
+        <Heading>{dateFormat(date)}</Heading>
+      </Card>
+
+      <HStack w={'full'} space={1} justifyContent={'center'}>
+        <Buttons w={'49%'} size={"sm"} variant={'outline'} leftIcon={<Icon as={MaterialIcons} name="edit-calendar" />}
+          onPress={() => navigateHandleDate()}
+        >
+          Editar fecha
+        </Buttons>
+
+        <Buttons w={'49%'} size={"sm"} variant={'solid'} colorScheme="success" leftIcon={<Icon as={MaterialIcons} name="save" />}
+          onPress={() => console.log("regitrar")}
+        >
+          Guardar registro
+        </Buttons>
+      </HStack>
+
+    </Box>
+  )
+}
+
+const RegistrarNuevoEnsayo = () => {
 
   const [date, setDate] = useState(new Date());
   const [data, setData] = useState([]);
 
   const local = useLocalSearchParams();
+  const dispatch = useDispatch();
+  const { listAsistentes } = useSelector(({ ensayos }) => ensayos);
 
   const onChangeChaeck = (newStatus, index) => {
     data[index].status = newStatus;
   }
 
-  const handleDate = async () => {
-
-    await storeObjectData('data-ensayo', data);
-
-    router.replace({
+  const navigateHandleDate = () => {
+    router.push({
       pathname: '/ensayo/registrar/fecha',
       params: {
         date: local.date
@@ -32,87 +56,41 @@ const index = () => {
     });
   }
 
-  const getData = async () => {
-    try {
-      const keys = await storeGetAllKeys();
-
-      if (keys.includes('data-ensayo')) {
-        const data = await storeGetObjectData('data-ensayo');
-        console.log(data);
-        setData(data)
-      } else {
-        setData(dataJSON);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
-    setDate(new Date(parseInt(local.date)));
-    getData();
 
+    setDate(new Date(parseInt(local.date)));
+
+    if (listAsistentes.length === 0) {
+      dispatch(getDataUsersEnsayos())
+    }
   }, []);
 
+  useEffect(() => {
+    setData(listAsistentes);
+  }, [listAsistentes]);
+
   return (
-    <View px={5} mb={20}>
+    <ContainerHome px={5} mb={20}>
 
-      <HStack display={'flex'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index}
+        px={1}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        removeClippedSubviewsen={true}
+        refreshing={true}
+        ItemSeparatorComponent={<Divider />}
+        ListHeaderComponent={() => ListHeaderComponent(date, navigateHandleDate)}
+        renderItem={({ item, index }) => (
+          <CheckBox item={item} index={index} onValueChange={onChangeChaeck} />
+        )}
+      />
 
-        <Box>
-          <IconButton
-            size={'lg'}
-            variant="solid"
-            _icon={{
-              as: MaterialIcons,
-              name: 'edit-calendar'
-            }}
-            onPress={handleDate}
-          />
-        </Box>
-
-        <Card width={'4/6'} height={'container'}>
-          <Text>Fecha</Text>
-          <Heading>{dateFormat(date)}</Heading>
-        </Card>
-
-        <Box>
-          <IconButton
-            size={'lg'}
-            variant="solid"
-            colorScheme={'success'}
-            _icon={{
-              as: MaterialIcons,
-              name: 'save'
-            }}
-            onPress={() => console.log(data.filter(i => i.status === "one" || i.status === "two" || i.status === "three"))}
-          />
-        </Box>
-
-      </HStack>
-      <Flex w={'full'} flexDirection={'row'} justifyContent={'flex-end'}>
-      <Text mr={6}>Asistencia</Text>
-      </Flex>
-      <Card
-        height={"85%"}
-      >
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => index}
-          px={1}
-          initialNumToRender={20}
-          maxToRenderPerBatch={20}
-          removeClippedSubviewsen={true}
-          refreshing={true}
-          ItemSeparatorComponent={<Divider />}
-          renderItem={({ item, index }) => (
-            <CheckBox item={item} index={index} onValueChange={onChangeChaeck} />
-          )}
-        />
-      </Card>
-
-    </View>
+    </ContainerHome>
   )
 }
 
-export default index
+
+
+export default RegistrarNuevoEnsayo

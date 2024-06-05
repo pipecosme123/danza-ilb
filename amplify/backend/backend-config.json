@@ -82,5 +82,13 @@
         }
       ]
     }
+  },
+  "storage": {
+    "danzailb275d0240": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "serviceType": "imported"
+    }
   }
 }

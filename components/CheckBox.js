@@ -34,7 +34,7 @@ const CheckBox = ({ item, index, onValueChange }) => {
       <Flex w={'5/6'} flexDirection={'row'} alignItems={'center'}>
         <Text w={'10%'} ml={2} fontSize={'lg'} color={'muted.500'}>{bulletPoints(index + 1)}</Text>
         <Divider orientation={'vertical'} _light={{ bg: "muted.500" }} />
-        <Text w={'4/6'} ml={2} fontSize={'lg'}>{fullName.trim()}</Text>
+        <Text w={'4/6'} ml={2} fontSize={'lg'}>{fullName}</Text>
       </Flex>
 
       <Flex w={'1/6'} flexDirection={'row'} alignItems={'center'}>

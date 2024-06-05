@@ -1,10 +1,10 @@
 import React from 'react'
 import { Slot } from 'expo-router'
 
-const _layout = () => {
+const LayoutEnsayos = () => {
   return (
     <Slot />
   )
 }
 
-export default _layout
+export default LayoutEnsayos

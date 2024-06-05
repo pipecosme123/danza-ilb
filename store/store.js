@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import users from "./reducer/users";
 import system from "./reducer/system";
+import ensayos from "./reducer/ensayos";
 
 const persistConfig = {
   key: '@root',
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   system,
   users,
+  ensayos
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

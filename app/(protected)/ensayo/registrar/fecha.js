@@ -2,24 +2,37 @@ import { View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useDispatch } from 'react-redux';
-import { cambiarFecha } from '../../../../store/reducer/ensayo';
 
-const fecha = () => {
+const RegistrarFechaEnsayo = () => {
 
   const [date, setDate] = useState(new Date());
-  const dispatch = useDispatch();
+  const [show, setShow] = useState(true);
+
   const local = useLocalSearchParams();
 
   const onChange = (date) => {
+    const { nativeEvent: { timestamp }, type } = date;
 
-    const { nativeEvent: { timestamp } } = date;
-    dispatch(cambiarFecha(timestamp));
-    router.push('./');
+    setShow(false);
+
+    setTimeout(() => {
+      if (type === "set") {
+        setShow(false);
+        router.push({
+          pathname: './',
+          params: {
+            date: timestamp
+          }
+        });
+      } else {
+        setShow(false);
+        router.back();
+      }
+    }, 600);
   }
 
   useEffect(() => {
-
+    console.log({ show });
     if (local.date) {
       setDate(new Date(parseInt(local.date)));
     }
@@ -27,14 +40,16 @@ const fecha = () => {
 
   return (
     <View>
-      <DateTimePicker
-        value={date}
-        mode={"date"}
-        onChange={onChange}
-        maximumDate={new Date()}
-      />
+      {show &&
+        <DateTimePicker
+          value={date}
+          mode={"date"}
+          onChange={onChange}
+          maximumDate={new Date()}
+        />
+      }
     </View>
   )
 }
 
-export default fecha
+export default RegistrarFechaEnsayo

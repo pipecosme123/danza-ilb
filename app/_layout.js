@@ -11,7 +11,7 @@ import { ToastAlert, Spiner } from '../components';
 
 Amplify.configure(amplifyconfig);
 
-export default () => {
+const Layout = () => {
 
   return (
     <Provider store={store}>
@@ -62,3 +62,5 @@ const RootLayout = () => {
     </NativeBaseProvider>
   )
 }
+
+export default Layout;

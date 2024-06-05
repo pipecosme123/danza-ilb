@@ -1,9 +1,10 @@
 import React from 'react'
 import { Buttons, Card, ContainerHome } from '../../../components'
-import { Box, Flex, HStack, Heading, Icon, IconButton, Text } from 'native-base'
-import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { Box, Fab, Flex, HStack, Heading, Icon, IconButton, Text } from 'native-base'
+import { MaterialIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
-const index = () => {
+
+const ListaEnsayos = () => {
   return (
     <ContainerHome>
       <Heading size={'2xl'}>Asistencia a ensayos</Heading>
@@ -36,7 +37,7 @@ const index = () => {
         <HStack w={'full'} space={3} justifyContent="space-between">
           <Box>
             <Buttons size={"sm"} variant={'subtle'} leftIcon={<Icon as={FontAwesome} name="group" />}
-            onPress={()=> router.push('/ensayo/asistencia/aaaa')}
+              onPress={() => router.push('/ensayo/asistencia/aaaa')}
             >
               Ver asistencia
             </Buttons>
@@ -44,8 +45,21 @@ const index = () => {
         </HStack>
 
       </Card>
+
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="lg"
+        icon={
+          <Icon color="white" as={AntDesign} name="plus" size="lg" />
+        }
+        label={
+          <Text fontWeight={'black'} color={'white'} fontSize={'lg'}>Añadir ensayo</Text>
+        }
+        onPress={()=> router.push('/ensayo/registrar/fecha')}
+      />
     </ContainerHome>
   )
 }
 
-export default index
+export default ListaEnsayos

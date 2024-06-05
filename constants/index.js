@@ -26,4 +26,10 @@ export const StateSignUp = Object.freeze({
   DONE: "DONE",
 });
 
+export const ATTENDANCE = {
+  EXCUSA: 'excusa',
+  INASISTENCIA: 'inasistentes',
+  ASISTENCIA: 'asistencia'
+}
+
 export const client = generateClient();

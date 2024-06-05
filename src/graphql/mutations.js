@@ -1,6 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createEnsayos = /* GraphQL */ `
+  mutation CreateEnsayos(
+    $input: CreateEnsayosInput!
+    $condition: ModelEnsayosConditionInput
+  ) {
+    createEnsayos(input: $input, condition: $condition) {
+      id
+      fecha
+      tipo
+      asistencia
+      estadistica
+      registrador
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateEnsayos = /* GraphQL */ `
+  mutation UpdateEnsayos(
+    $input: UpdateEnsayosInput!
+    $condition: ModelEnsayosConditionInput
+  ) {
+    updateEnsayos(input: $input, condition: $condition) {
+      id
+      fecha
+      tipo
+      asistencia
+      estadistica
+      registrador
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteEnsayos = /* GraphQL */ `
+  mutation DeleteEnsayos(
+    $input: DeleteEnsayosInput!
+    $condition: ModelEnsayosConditionInput
+  ) {
+    deleteEnsayos(input: $input, condition: $condition) {
+      id
+      fecha
+      tipo
+      asistencia
+      estadistica
+      registrador
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createUsers = /* GraphQL */ `
   mutation CreateUsers(
     $input: CreateUsersInput!

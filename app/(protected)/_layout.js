@@ -3,7 +3,7 @@ import { Slot, usePathname } from 'expo-router';
 import { HeaderBack, HeaderHome } from '../../components';
 import { Box } from 'native-base';
 
-const _layout = () => {
+const LayoutHome = () => {
 
   const pathname = usePathname();
   const [location, setLocation] = useState('/');
@@ -19,7 +19,7 @@ const _layout = () => {
         h={'full'}
         mb={"40px"}
         pt={3}
-        px={2}
+        px={1}
       >
         <Slot />
       </Box>
@@ -27,4 +27,4 @@ const _layout = () => {
   )
 }
 
-export default _layout
+export default LayoutHome
