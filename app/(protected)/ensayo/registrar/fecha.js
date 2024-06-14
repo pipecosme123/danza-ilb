@@ -21,7 +21,8 @@ const RegistrarFechaEnsayo = () => {
         router.push({
           pathname: './',
           params: {
-            date: timestamp
+            date: timestamp,
+            type: local.type
           }
         });
       } else {

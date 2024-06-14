@@ -20,8 +20,7 @@ export const ensayosSlice = createSlice({
       state.responsable = action.payload.responsable;
     },
     registrarAsistentes: (state, action) => {
-      state.asistentes = action.payload.asistentes;
-      state.inasistentes = action.payload.inasistentes;
+      state.asistentes.push(action.payload.asistentes);
     },
     resgistrarExcusas: (state, action) => {
       state.inasistentes = action.payload.inasistentes;

@@ -8,8 +8,10 @@ export const getEnsayos = /* GraphQL */ `
       fecha
       tipo
       asistencia
-      estadistica
+      excusas
+      inasistencias
       registrador
+      estadistica
       createdAt
       updatedAt
       __typename
@@ -28,8 +30,10 @@ export const listEnsayoss = /* GraphQL */ `
         fecha
         tipo
         asistencia
-        estadistica
+        excusas
+        inasistencias
         registrador
+        estadistica
         createdAt
         updatedAt
         __typename
@@ -51,10 +55,13 @@ export const getUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      username
       registerCognito
       sendCodeTime
       subCognito
-      username
+      e_asistencia
+      e_excusa
+      e_inasistencia
       createdAt
       updatedAt
       __typename
@@ -78,10 +85,13 @@ export const listUserss = /* GraphQL */ `
         genero
         direccion
         telefono
+        username
         registerCognito
         sendCodeTime
         subCognito
-        username
+        e_asistencia
+        e_excusa
+        e_inasistencia
         createdAt
         updatedAt
         __typename
@@ -91,25 +101,6 @@ export const listUserss = /* GraphQL */ `
     }
   }
 `;
-
-export const listUsersEnsayo = /* GraphQL */ `
-  query ListUserss(
-    $filter: ModelUsersFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        nombres
-        apellidos
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-
 export const getByNumId = /* GraphQL */ `
   query GetByNumId(
     $numId: String
@@ -135,10 +126,13 @@ export const getByNumId = /* GraphQL */ `
         genero
         direccion
         telefono
+        username
         registerCognito
         sendCodeTime
         subCognito
-        username
+        e_asistencia
+        e_excusa
+        e_inasistencia
         createdAt
         updatedAt
         __typename

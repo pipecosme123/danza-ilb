@@ -13,8 +13,10 @@ type Ensayos @model @auth(rules: [{allow: public}]) {
   fecha: AWSDate!
   tipo: TipoEnsayo!
   asistencia: [AWSJSON!]!
+  excusas: [AWSJSON]
+  inasistencias: [AWSJSON]
+  registrador: AWSJSON!
   estadistica: AWSJSON
-  registrador: AWSJSON
 }
 
 enum StateSignUp {
@@ -33,9 +35,12 @@ type Users @model @auth(rules: [{allow: public}]) @key(name: "byNumId", fields: 
   genero: String!
   direccion: String!
   telefono: String!
+  username: String
   registerCognito: StateSignUp
   sendCodeTime: AWSDateTime
   subCognito: String
-  username: String
+  e_asistencia: [AWSJSON]
+  e_excusa: [AWSJSON]
+  e_inasistencia: [AWSJSON!]
 }
  

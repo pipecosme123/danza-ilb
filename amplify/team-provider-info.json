@@ -24,10 +24,18 @@
           "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
           "s3Key": "amplify-builds/addUserToGroup-6c587335787479497930-build.zip"
         },
-        "statusAccountSignUp": {}
+        "statusAccountSignUp": {},
+        "addUserToCsv": {
+          "tableName": "Users-f475l4evvjghzgv3oihbpqwt6a-staging",
+          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
+          "s3Key": "amplify-builds/addUserToCsv-4c38457478364d6d7555-build.zip"
+        }
       },
       "storage": {
-        "danzailb275d0240": {}
+        "danzailb275d0240": {
+          "bucketName": "danzailb-storage-5638e50831f2e-staging",
+          "region": "us-east-1"
+        }
       }
     }
   }

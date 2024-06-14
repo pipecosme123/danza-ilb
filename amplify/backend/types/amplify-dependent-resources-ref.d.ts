@@ -20,6 +20,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "addUserToCsv": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "addUserToGroup": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

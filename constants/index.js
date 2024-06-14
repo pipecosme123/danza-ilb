@@ -26,10 +26,12 @@ export const StateSignUp = Object.freeze({
   DONE: "DONE",
 });
 
-export const ATTENDANCE = {
+export const ATTENDANCE = Object.freeze({
   EXCUSA: 'excusa',
   INASISTENCIA: 'inasistentes',
-  ASISTENCIA: 'asistencia'
-}
+  ASISTENCIA: 'asistencia',
+  CHANGEFALSE: "changefalse",
+  FALSE: false
+})
 
 export const client = generateClient();

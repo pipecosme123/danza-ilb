@@ -1,96 +1,204 @@
 import React, { useEffect, useState } from 'react'
-import { router, useLocalSearchParams } from 'expo-router';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Box, Center, Flex, HStack, Heading, Icon, Pressable, SectionList, Text } from 'native-base'
+import { router } from 'expo-router';
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Divider, FlatList, Heading, HStack, Text, Icon } from 'native-base';
-import { MaterialIcons } from "@expo/vector-icons";
 
+import { Buttons, Card, ContainerHome } from '../../../../components'
+import { ATTENDANCE } from '../../../../constants';
 import { dateFormat } from '../../../../helpers/dateFormat';
-import { Buttons, CheckBox, Card, ContainerHome } from '../../../../components';
+import getStyleHeader from '../../../../helpers/getStyleHeader';
 import getDataUsersEnsayos from '../../../../store/actions/ensayos/getDataUsersEnsayos';
 
-const ListHeaderComponent = (date, navigateHandleDate) => {
+
+const initialState = [
+  {
+    title: ATTENDANCE.ASISTENCIA,
+    data: []
+  },
+  {
+    title: ATTENDANCE.EXCUSA,
+    data: []
+  },
+  {
+    title: ATTENDANCE.INASISTENCIA,
+    data: []
+  }
+];
+
+const ListHeaderComponent = ({ date, showDatePicker, handleSubmit }) => {
+
   return (
-    <Box mb={5}>
-      <Card width={'full'} height={'container'}>
-        <Text>Fecha</Text>
-        <Heading>{dateFormat(date)}</Heading>
-      </Card>
+    <Box mb={3}>
+      <Box w={'full'} mb={3}>
+        <Heading size={'2xl'}>Nuevo ensayo</Heading>
+        <Box>
+          <Text>Fecha:</Text>
+          <Heading>{dateFormat(date)}</Heading>
+        </Box>
+      </Box>
 
-      <HStack w={'full'} space={1} justifyContent={'center'}>
-        <Buttons w={'49%'} size={"sm"} variant={'outline'} leftIcon={<Icon as={MaterialIcons} name="edit-calendar" />}
-          onPress={() => navigateHandleDate()}
-        >
-          Editar fecha
-        </Buttons>
+      <HStack w={'full'} space={1} justifyContent={'center'} alignItems={"center"}>
 
-        <Buttons w={'49%'} size={"sm"} variant={'solid'} colorScheme="success" leftIcon={<Icon as={MaterialIcons} name="save" />}
-          onPress={() => console.log("regitrar")}
+        {/* <Pressable
+          m={0}
+          onPress={showDatePicker}
+          bg={"white"}
+        // height={'container'}
         >
-          Guardar registro
-        </Buttons>
+          {/* <Card height={'container'}> */}
+
+          {/* </Card> 
+        </Pressable> */}
+
+
+          <Buttons
+            size={"sm"}
+            variant={'outline'}
+            colorScheme="success"
+            leftIcon={
+              <Icon as={MaterialIcons} name="check" />
+            }
+            onPress={showDatePicker}
+          >
+            Añadir asistentes
+          </Buttons>
+
+          <Buttons
+            size={"sm"}
+            variant={'outline'}
+            colorScheme="warning"
+            leftIcon={
+              <Icon as={MaterialCommunityIcons} name="file-edit-outline" />
+            }
+            onPress={showDatePicker}
+            disabled={true}
+          >
+            Añadir Excusas
+          </Buttons>
+
       </HStack>
 
-    </Box>
+    </Box >
   )
 }
 
-const RegistrarNuevoEnsayo = () => {
+const DashboardRegistrosEnsayos = () => {
 
-  const [date, setDate] = useState(new Date());
-  const [data, setData] = useState([]);
-
-  const local = useLocalSearchParams();
-  const dispatch = useDispatch();
   const { listAsistentes } = useSelector(({ ensayos }) => ensayos);
 
-  const onChangeChaeck = (newStatus, index) => {
-    data[index].status = newStatus;
+  const [data, setData] = useState(initialState);
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const dispatch = useDispatch();
+
+
+  const showDatePicker = () => {
+    setShow(true);
   }
 
-  const navigateHandleDate = () => {
-    router.push({
-      pathname: '/ensayo/registrar/fecha',
-      params: {
-        date: local.date
-      }
-    });
+  const onChangeDate = (date) => {
+    const { nativeEvent: { timestamp }, type } = date;
+    setShow(false);
+    if (type === 'set') {
+      setDate(new Date(timestamp));
+    }
+  }
+
+  const handleSubmit = () => {
+    console.log({ data });
   }
 
   useEffect(() => {
-
-    setDate(new Date(parseInt(local.date)));
-
     if (listAsistentes.length === 0) {
       dispatch(getDataUsersEnsayos())
     }
   }, []);
 
   useEffect(() => {
-    setData(listAsistentes);
+    // setData(listAsistentes);
   }, [listAsistentes]);
 
   return (
-    <ContainerHome px={5} mb={20}>
-
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index}
+    <ContainerHome>
+      <SectionList
         px={1}
-        initialNumToRender={20}
-        maxToRenderPerBatch={20}
-        removeClippedSubviewsen={true}
-        refreshing={true}
-        ItemSeparatorComponent={<Divider />}
-        ListHeaderComponent={() => ListHeaderComponent(date, navigateHandleDate)}
-        renderItem={({ item, index }) => (
-          <CheckBox item={item} index={index} onValueChange={onChangeChaeck} />
+        w="full"
+        // h={'full'}
+        // bg={'amber.400'}
+        sections={data}
+        keyExtractor={(item, index) => index}
+        ListHeaderComponent={() => (
+          <ListHeaderComponent
+            date={date}
+            handleSubmit={handleSubmit}
+            showDatePicker={showDatePicker}
+          />
+        )}
+
+        renderSectionHeader={({ section: { title, data } }) => {
+          const { bg, icon } = getStyleHeader(title);
+
+          return (
+            <Box
+              mt={3}
+              mx={1}
+              p={2}
+              borderRadius={'sm'}
+              background={bg.color}>
+              <Flex
+                py={3}
+                direction='row'
+                alignItems={'center'}
+                justifyContent={'space-between'}
+                bg={bg.color}
+              >
+                <Flex direction='row' alignItems={'center'}>
+                  <Icon as={MaterialCommunityIcons} name={icon.name} color={bg.icon} size={'xl'} mr={2} />
+                  <Heading fontSize="xl">{title.toUpperCase()}</Heading>
+                </Flex>
+
+                <Heading fontSize="2xl" fontWeight={'black'} mr={5} color={bg.icon}>{data.length}</Heading>
+              </Flex>
+            </Box>
+          )
+        }}
+
+        renderItem={({ item, index, section: { title } }) => {
+          const { bg, icon } = getStyleHeader(title);
+
+          return (
+            <HStack py="1" borderBottomWidth={1} borderBottomColor={"muted.300"} bg={index % 2 === 0 ? "muted.100" : null}>
+              <Center w={'1/6'}>
+                <Icon as={MaterialCommunityIcons} name={icon.name} color={icon.color} size={'lg'} />
+              </Center>
+              <Box>
+                <Text fontSize={'lg'}>{item.name}</Text>
+              </Box>
+            </HStack>
+          )
+        }}
+
+        ListFooterComponent={() => (
+          <Box>
+            <Text>FIN</Text>
+          </Box>
         )}
       />
 
+      {show &&
+        <DateTimePicker
+          value={date}
+          mode={"date"}
+          onChange={onChangeDate}
+          maximumDate={new Date()}
+        />
+      }
     </ContainerHome>
   )
 }
 
 
-
-export default RegistrarNuevoEnsayo
+export default DashboardRegistrosEnsayos;

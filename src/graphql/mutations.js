@@ -11,8 +11,10 @@ export const createEnsayos = /* GraphQL */ `
       fecha
       tipo
       asistencia
-      estadistica
+      excusas
+      inasistencias
       registrador
+      estadistica
       createdAt
       updatedAt
       __typename
@@ -29,8 +31,10 @@ export const updateEnsayos = /* GraphQL */ `
       fecha
       tipo
       asistencia
-      estadistica
+      excusas
+      inasistencias
       registrador
+      estadistica
       createdAt
       updatedAt
       __typename
@@ -47,8 +51,10 @@ export const deleteEnsayos = /* GraphQL */ `
       fecha
       tipo
       asistencia
-      estadistica
+      excusas
+      inasistencias
       registrador
+      estadistica
       createdAt
       updatedAt
       __typename
@@ -70,10 +76,13 @@ export const createUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      username
       registerCognito
       sendCodeTime
       subCognito
-      username
+      e_asistencia
+      e_excusa
+      e_inasistencia
       createdAt
       updatedAt
       __typename
@@ -95,10 +104,13 @@ export const updateUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      username
       registerCognito
       sendCodeTime
       subCognito
-      username
+      e_asistencia
+      e_excusa
+      e_inasistencia
       createdAt
       updatedAt
       __typename
@@ -120,10 +132,13 @@ export const deleteUsers = /* GraphQL */ `
       genero
       direccion
       telefono
+      username
       registerCognito
       sendCodeTime
       subCognito
-      username
+      e_asistencia
+      e_excusa
+      e_inasistencia
       createdAt
       updatedAt
       __typename

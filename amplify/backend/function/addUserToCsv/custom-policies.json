@@ -1,0 +1,14 @@
+[
+  {
+    "Action": [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "dynamodb:PutItem"
+    ],
+    "Resource": [
+      "arn:aws:s3:::danzailb-storage-5638e50831f2e-staging",
+      "arn:aws:s3:::danzailb-storage-5638e50831f2e-staging/*",
+      "arn:aws:dynamodb:us-east-1:992382542493:table/Users-f475l4evvjghzgv3oihbpqwt6a-staging"
+    ]
+  }
+]

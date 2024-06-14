@@ -1,6 +1,6 @@
 import { client } from "../../../constants";
 import setInfoData from "../../../helpers/setInfoData";
-import { listUsersEnsayo } from "../../../src/graphql/queries";
+import { listUsersEnsayo } from "../../../src/graphql/custom/queries";
 import { agragarListAsistentes } from "../../reducer/ensayos";
 import { startLoading, stopLoading } from "../../reducer/system";
 
@@ -13,10 +13,11 @@ export default getDataUsersEnsayos = () => {
       });
 
       const listAsistentes = setInfoData(data.listUserss.items);
-      dispatch(agragarListAsistentes({ listAsistentes }))
+      listAsistentes.sort((a, b) => a.fullName.localeCompare(b.fullName));
+      dispatch(agragarListAsistentes({ listAsistentes }));
 
     } catch (error) {
-      console.log(error);
+      console.log({getDataUsersEnsayos: error});
     } finally {
       dispatch(stopLoading());
     }

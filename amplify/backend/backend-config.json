@@ -59,6 +59,20 @@
     }
   },
   "function": {
+    "addUserToCsv": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "danzailb275d0240"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "addUserToGroup": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -66,6 +80,30 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_addUserToCsv_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserToCsv"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserToCsv_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserToCsv"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserToCsv_tableName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserToCsv"
+        }
+      ]
+    },
     "AMPLIFY_function_addUserToGroup_deploymentBucketName": {
       "usedBy": [
         {
@@ -79,6 +117,22 @@
         {
           "category": "function",
           "resourceName": "addUserToGroup"
+        }
+      ]
+    },
+    "AMPLIFY_storage_danzailb275d0240_bucketName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "danzailb275d0240"
+        }
+      ]
+    },
+    "AMPLIFY_storage_danzailb275d0240_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "danzailb275d0240"
         }
       ]
     }

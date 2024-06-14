@@ -3,6 +3,7 @@ import { Buttons, Card, ContainerHome } from '../../../components'
 import { Box, Fab, Flex, HStack, Heading, Icon, IconButton, Text } from 'native-base'
 import { MaterialIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { ATTENDANCE } from '../../../constants';
 
 const ListaEnsayos = () => {
   return (
@@ -56,7 +57,12 @@ const ListaEnsayos = () => {
         label={
           <Text fontWeight={'black'} color={'white'} fontSize={'lg'}>Añadir ensayo</Text>
         }
-        onPress={()=> router.push('/ensayo/registrar/fecha')}
+        onPress={() => router.push({
+          pathname: '/ensayo/registrar/',
+          params: {
+            type: ATTENDANCE.ASISTENCIA
+          }
+        })}
       />
     </ContainerHome>
   )
