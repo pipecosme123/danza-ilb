@@ -13,7 +13,7 @@ export default getDataUsersEnsayos = () => {
       });
 
       const listAsistentes = setInfoData(data.listUserss.items);
-      listAsistentes.sort((a, b) => a.fullName.localeCompare(b.fullName));
+      listAsistentes.sort((a, b) => a.fullname.localeCompare(b.fullname));
       dispatch(agragarListAsistentes({ listAsistentes }));
 
     } catch (error) {

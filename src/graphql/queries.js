@@ -59,9 +59,7 @@ export const getUsers = /* GraphQL */ `
       registerCognito
       sendCodeTime
       subCognito
-      e_asistencia
-      e_excusa
-      e_inasistencia
+      ensayos
       createdAt
       updatedAt
       __typename
@@ -89,9 +87,7 @@ export const listUserss = /* GraphQL */ `
         registerCognito
         sendCodeTime
         subCognito
-        e_asistencia
-        e_excusa
-        e_inasistencia
+        ensayos
         createdAt
         updatedAt
         __typename
@@ -130,9 +126,7 @@ export const getByNumId = /* GraphQL */ `
         registerCognito
         sendCodeTime
         subCognito
-        e_asistencia
-        e_excusa
-        e_inasistencia
+        ensayos
         createdAt
         updatedAt
         __typename

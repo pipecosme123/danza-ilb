@@ -68,9 +68,7 @@ export const onCreateUsers = /* GraphQL */ `
       registerCognito
       sendCodeTime
       subCognito
-      e_asistencia
-      e_excusa
-      e_inasistencia
+      ensayos
       createdAt
       updatedAt
       __typename
@@ -93,9 +91,7 @@ export const onUpdateUsers = /* GraphQL */ `
       registerCognito
       sendCodeTime
       subCognito
-      e_asistencia
-      e_excusa
-      e_inasistencia
+      ensayos
       createdAt
       updatedAt
       __typename
@@ -118,9 +114,7 @@ export const onDeleteUsers = /* GraphQL */ `
       registerCognito
       sendCodeTime
       subCognito
-      e_asistencia
-      e_excusa
-      e_inasistencia
+      ensayos
       createdAt
       updatedAt
       __typename

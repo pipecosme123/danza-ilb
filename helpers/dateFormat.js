@@ -16,6 +16,11 @@ export const dateFormatCognito = (fecha) => {
   return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
 }
 
+export const AWSdate = (fecha) => {
+  const newDate = new Date(fecha);
+  return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}Z`;
+}
+
 export const dateTimeCognitoFormat = () => {
   const date = new Date();
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000Z`;

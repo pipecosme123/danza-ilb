@@ -39,8 +39,6 @@ type Users @model @auth(rules: [{allow: public}]) @key(name: "byNumId", fields: 
   registerCognito: StateSignUp
   sendCodeTime: AWSDateTime
   subCognito: String
-  e_asistencia: [AWSJSON]
-  e_excusa: [AWSJSON]
-  e_inasistencia: [AWSJSON!]
+  ensayos: [AWSJSON]
 }
  

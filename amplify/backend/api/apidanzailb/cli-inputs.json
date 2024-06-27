@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/ensayos": {
+      "name": "/ensayos",
+      "lambdaFunction": "registrarEnsayos",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

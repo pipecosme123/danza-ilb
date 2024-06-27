@@ -1,0 +1,222 @@
+{
+  "data": {
+    "fecha": "2024-06-27",
+    "listAsistentes": [
+      {
+        "fullname": "Alexis Cuero",
+        "id": "5ffdece0-a666-5eaa-a0f3-142cfd1f927b",
+        "status": false
+      },
+      {
+        "fullname": "Ana María Angulo",
+        "id": "5799a492-8964-548c-b00f-c75f88df4b13",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Ana Milena Pineiros",
+        "id": "8b0bc025-be84-5644-b449-c39fbac4e687",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Angie Lorena Bravo",
+        "id": "e0d43610-ad52-50fc-a63e-0a2e925e7f90",
+        "status": false
+      },
+      {
+        "fullname": "Araly Mera",
+        "id": "0ebd2179-d852-5f8f-85ff-a41d79a30107",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Aydee Sinisterra",
+        "id": "91cad22b-d450-506e-af6e-cdf0c32b39d9",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Claudia Patricia Anacona",
+        "id": "b2aaa909-29db-5d98-8cb0-1839119b6527",
+        "status": false
+      },
+      {
+        "fullname": "Claudia Patricia Granada",
+        "id": "45234044-5eea-5fe3-bbb2-6bd9bb17139d",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Daniel Felipe Cosme",
+        "id": "f8480d7e-24c1-48ae-a827-77c92e521237",
+        "status": false
+      },
+      {
+        "fullname": "Daniel Felipe Cosme",
+        "id": "4e7e4fd3-df3b-5014-b4ba-839367ea7adf",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Diana Fernanda Mancilla",
+        "id": "8d4d7a3c-b539-5ac9-95ce-b78ce7481b45",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Elizabeth Segura",
+        "id": "b7c86abe-4442-5ac2-913b-dbeb563ddd4f",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Elsy Alexandra Cortes",
+        "id": "6cdfebc2-7f3a-5529-b97e-b6c19ebf4aae",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Esteban Cuero",
+        "id": "54526ce8-d7c3-5b8c-bf7c-077bbd7cdae0",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Eunice González",
+        "id": "5501791a-0e0f-58b4-a94a-4497db92ff09",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Gloria Edilia Giraldo",
+        "id": "b0c01865-8742-5b3c-a209-4f64c117ce2a",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Gloria Genith Guerrero",
+        "id": "6aeffcf0-5fe9-5334-95a9-54c23a71dee8",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Heilyn Viviana González",
+        "id": "e357c1eb-4062-5c5b-a1ea-779a3f0e22de",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Isabella Murillo",
+        "id": "f5a0ca00-a5d1-58bb-bd6c-474b0f3b9a63",
+        "status": false
+      },
+      {
+        "fullname": "Karen Melissa Ibarbo",
+        "id": "1610e6e4-b468-5ae0-87bd-d4a16ea6e3ce",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Karol Yulieth Viafara",
+        "id": "fa812944-81ec-5810-adbd-e01d39964cad",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Kelly Johana Quintero",
+        "id": "85552883-316b-5978-be41-0c6dc584805f",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Laura María Castañeda",
+        "id": "b1358232-6acc-598a-9123-8be23c1b4870",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Leidy Johanna Ramos",
+        "id": "de8eae55-ce06-53cc-ab1a-e93108b64352",
+        "status": false
+      },
+      {
+        "fullname": "Lida Fernanda Moran",
+        "id": "2bac6ff7-df44-522a-9113-24e949f892d5",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Linda Carolina Suárez",
+        "id": "e3108b35-0507-5ecd-9da7-07938fa99f03",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Loida González",
+        "id": "6696d74a-33b2-5ed0-8bc2-5e30740a14fe",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Luz Dary Angulo",
+        "id": "be81f58b-c1b0-51ad-93f4-aca3fb0df7ef",
+        "status": false
+      },
+      {
+        "fullname": "Luz marina Quintero",
+        "id": "cfe5b59c-b363-53f8-b00b-731085fec9db",
+        "status": "excusa"
+      },
+      {
+        "fullname": "Luz Marina Santana",
+        "id": "63f65bd4-4045-595c-adab-0006c6a863d9",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Maira Alejandra Caicedo",
+        "id": "04f4963b-5722-5149-b830-de7c66a4dab1",
+        "status": false
+      },
+      {
+        "fullname": "María Ángela Rodríguez",
+        "id": "dea14da5-b55f-582c-9865-4bb9f66c8958",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "María Cruz Correa",
+        "id": "db2b13c0-5108-58d3-ae4c-ccca005de38b",
+        "status": false
+      },
+      {
+        "fullname": "María Enoes Banguero",
+        "id": "a8f1b863-b5c0-5bc4-ab07-9e9f0f071a79",
+        "status": false
+      },
+      {
+        "fullname": "Maribel Montoya",
+        "id": "49a0495e-5f20-5382-8bd9-21dd807c02f2",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Marvin Antonio Murillo",
+        "id": "7c3d1d13-c0ac-560e-8ad3-de053e5d21ab",
+        "status": false
+      },
+      {
+        "fullname": "Miriam Ramírez",
+        "id": "e3d0f340-2384-596e-8c5f-8d01846e4b64",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Mirian Adriana Ibarguen",
+        "id": "be74313d-66e8-57cb-bd4c-fa680046ddb1",
+        "status": false
+      },
+      {
+        "fullname": "Ruth Esther González",
+        "id": "b24a54c5-4034-513f-bff3-028dab782342",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Sulma Cecilia Balanta",
+        "id": "c1f07b51-a194-5cd7-8db5-70dfed4c1b6d",
+        "status": false
+      },
+      {
+        "fullname": "Yenis Jaraba",
+        "id": "869bb66d-7187-5ba8-a7a7-2238f09fdc81",
+        "status": "asistencia"
+      },
+      {
+        "fullname": "Yenny Mazuera",
+        "id": "5b406666-4cc8-5147-bf03-0e5adc0852f8",
+        "status": false
+      }
+    ],
+    "registrador": {
+      "id": "4418a438-2051-701f-08ba-61b6acc514d4",
+      "name": "daniel felipe"
+    },
+    "tipo": "ACTIVOS"
+  }
+}

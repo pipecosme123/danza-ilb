@@ -1,16 +1,22 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
-import { Center, Checkbox, Divider, Flex, HStack, Text } from 'native-base'
+import { Badge, Center, Divider, Flex, HStack, Icon, Text } from 'native-base'
+import Checkbox from 'expo-checkbox';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ATTENDANCE } from '../constants';
+import getStyleHeader from '../helpers/getStyleHeader';
 
 const CheckBox = forwardRef(({ item, index, typeRegister }, ref) => {
 
-  const { id, fullName, status } = item;
+  const { id, fullname, status } = item;
   const [value, setValue] = useState(false);
   const [data, setData] = useState(null);
+  const [attendance, setAttendance] = useState(true);
+  const styleCheck = getStyleHeader(typeRegister);
+  const styleBadge = getStyleHeader(typeRegister === ATTENDANCE.ASISTENCIA ? ATTENDANCE.EXCUSA : ATTENDANCE.ASISTENCIA);
 
-  const onChange = (e) => {
+  const onValueChange = (e) => {
     setValue(e);
-    setData({ id, fullName, status: e })
+    setData({ id, fullname, status: e })
   }
 
   const bulletPoints = (num) => {
@@ -20,26 +26,6 @@ const CheckBox = forwardRef(({ item, index, typeRegister }, ref) => {
     return `${num}.`;
   }
 
-  const handleColor = () => {
-    switch (typeRegister) {
-      case ATTENDANCE.ASISTENCIA:
-        return {
-          color: "green",
-          text: {
-            value: "Asistencia"
-          }
-        };
-
-      default:
-        return {
-          color: "orange",
-          text: {
-            value: "Excusa"
-          }
-        };
-
-    }
-  }
 
   useImperativeHandle(ref, () => ({
     getChildState: () => {
@@ -49,16 +35,20 @@ const CheckBox = forwardRef(({ item, index, typeRegister }, ref) => {
 
   useEffect(() => {
     if (status !== ATTENDANCE.FALSE) {
-      setValue(true);
-      setData({ id, fullName, status: true })
+      if (typeRegister === status) {
+        setValue(true);
+        setData({ id, fullname, status: true })
+      } else {
+        setAttendance(false)
+      }
     }
-  }, []);
+  }, [status]);
 
   return (
     <HStack
       w={"5/6"}
       ml={2}
-      py={2}
+      py={1}
       bg={index % 2 === 0 ? 'white' : 'muted.100'}
       justifyContent={"space-between"}
     >
@@ -66,18 +56,35 @@ const CheckBox = forwardRef(({ item, index, typeRegister }, ref) => {
       <Flex w={"80%"} flexDirection={'row'} alignItems={'center'}>
         <Text w={'10%'} ml={2} fontSize={'lg'} color={'muted.500'}>{bulletPoints(index + 1)}</Text>
         <Divider orientation={'vertical'} _light={{ bg: "muted.500" }} />
-        <Text ml={2} fontSize={'lg'}>{fullName}</Text>
+        <Text ml={2} fontSize={'lg'}>{fullname}</Text>
       </Flex>
 
       <Center w={"40%"}>
-        <Checkbox
+
+        {attendance ?
+          <Checkbox
+            style={{ width: 25, height: 25, padding: 4, borderRadius: 4, borderWidth: 2, borderColor: "#a3a3a3" }}
+            value={value}
+            onValueChange={onValueChange}
+            color={value ? `${styleCheck.icon.hex}` : undefined}
+          />
+          :
+          <Badge colorScheme={styleBadge.bg.color.split('.')[0]}>
+            <Flex direction='row'>
+              <Icon as={MaterialCommunityIcons} name={styleBadge.icon.name} color={styleBadge.icon.color} size={'sm'} mr={1} />
+              {styleBadge.name}
+            </Flex>
+          </Badge>
+        }
+
+        {/* <Checkbox
           colorScheme={handleColor().color}
           value={`00${index}_${handleColor().text.value}`}
           onChange={onChange}
           size="md"
-          aria-label={fullName}
+          aria-label={fullname}
           defaultIsChecked={value}
-        />
+        /> */}
       </Center>
     </HStack>
   )

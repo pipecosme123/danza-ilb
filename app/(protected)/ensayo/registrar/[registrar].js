@@ -31,38 +31,7 @@ const ListHeaderComponent = ({ typeRegister, navigateHandleDate, handleSubmit })
   return (
     <Box mb={3}>
       <Heading fontSize={'3xl'}>{typeView().title}</Heading>
-
-      <HStack w={'full'} space={1} justifyContent={'center'}>
-
-        <Buttons
-          w={'49%'}
-          size={"sm"}
-          variant={'outline'}
-          colorScheme="primary"
-          leftIcon={
-            <Icon as={MaterialIcons} name="edit-calendar" />
-          }
-          onPress={navigateHandleDate}
-        >
-          Cambiar Fecha
-        </Buttons>
-
-        <Buttons
-          w={'49%'}
-          size={"sm"}
-          variant={'solid'}
-          colorScheme="success"
-          leftIcon={
-            <Icon as={MaterialIcons} name="save" />
-          }
-          onPress={handleSubmit}
-        >
-          Guardar registro
-        </Buttons>
-      </HStack>
-
       <Text mt={2}>{typeView().description}</Text>
-
     </Box >
   )
 }
@@ -72,61 +41,16 @@ const RegistrarNuevoEnsayo = () => {
   const local = useLocalSearchParams();
   const dispatch = useDispatch();
 
-  const [date, setDate] = useState(new Date());
-  const [data, setData] = useState([]);
-  const childRefs = useRef({});
   const { listAsistentes } = useSelector(({ ensayos }) => ensayos);
 
-  const navigateHandleDate = () => {
-    router.push({
-      pathname: '/ensayo/registrar/fecha',
-      params: {
-        date: local.date
-      }
-    });
-  }
-
-  const handleSubmit = () => {
-    console.log({ data });
-  }
+  const [data, setData] = useState([]);
+  const childRefs = useRef({});
 
   const changeRegister = () => {
 
-    dispatch(updateListaAsistentes({ listAsistentes, childRefs, type: local.type }))
-    // dispatch(startLoading());
-    // const newStatusData = [].concat(listAsistentes).map((item, index) => {
-    //   const childState = childRefs.current[index]?.getChildState();
-    //   if (childState) {
-    //     if (childState.status === true && item.status === false) {
-    //       return { ...item, status: local.type };
-    //     }
-
-    //     if (childState.status === false && item.status === local.type) {
-    //       return { ...item, status: ATTENDANCE.FALSE };
-    //     }
-    //   }
-    //   return item;
-    // });
-
-
-
-    console.log(newStatusData);
-    // setData(prevData => {
-    //   return prevData.map((item, index) => {
-    //     const childState = childRefs.current[index]?.getChildState();
-    //     if (childState) {
-    //       if (childState.status === true && item.status === false) {
-    //         return { ...item, status: local.type };
-    //       }
-
-    //       if (childState.status === false && item.status === local.type) {
-    //         return { ...item, status: ATTENDANCE.FALSE };
-    //       }
-    //     }
-    //     return item;
-    //   });
-    // });
-
+    dispatch(updateListaAsistentes({ listAsistentes, childRefs, type: local.registrar }))
+    router.back();
+    // console.log(newStatusData);
   }
 
   const addChildRef = (index, ref) => {
@@ -136,21 +60,18 @@ const RegistrarNuevoEnsayo = () => {
   };
 
   useEffect(() => {
-    setDate(new Date(parseInt(local.date)));
-    if (listAsistentes.length === 0) {
-      dispatch(getDataUsersEnsayos())
-    }
+    setData(listAsistentes);
   }, []);
 
-  useEffect(() => {
-    setData(listAsistentes);
-  }, [listAsistentes]);
+  // useEffect(() => {
+  //   setData(listAsistentes);
+  // }, [listAsistentes]);
 
   return (
     <ContainerHome px={5} mb={20}>
 
       <FlatList
-        data={data}
+        data={listAsistentes}
         keyExtractor={item => item.id}
         px={1}
         initialNumToRender={20}
@@ -160,20 +81,39 @@ const RegistrarNuevoEnsayo = () => {
         ItemSeparatorComponent={<Divider />}
         ListHeaderComponent={() =>
           <ListHeaderComponent
-            date={date}
-            typeRegister={local.type}
-            navigateHandleDate={changeRegister}
-            handleSubmit={handleSubmit} />
+            typeRegister={local.registrar}
+          />
         }
         renderItem={({ item, index }) => (
           <CheckBox
             ref={ref => addChildRef(index, ref)}
             index={index}
             item={item}
-            typeRegister={local.type}
+            typeRegister={local.registrar}
           />
         )}
       />
+
+      <HStack
+        w={"full"}
+        pt={3}
+        space={2}
+        justifyContent={"center"}
+        borderTopWidth={1}
+        borderTopColor={"muted.200"}
+      >
+        <Buttons w={"45%"} variant={"outline"}
+          onPress={() => router.back()}
+        >
+          Cancelar
+        </Buttons>
+
+        <Buttons w={"45%"} colorScheme={"primary"}
+          onPress={changeRegister}
+        >
+          Registrar
+        </Buttons>
+      </HStack>
 
     </ContainerHome>
   )

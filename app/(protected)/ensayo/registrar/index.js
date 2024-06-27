@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Box, Center, Flex, HStack, Heading, Icon, Pressable, SectionList, Text } from 'native-base'
-import { router } from 'expo-router';
+import { Box, Center, Flex, HStack, Heading, Icon, IconButton, Pressable, SectionList, Text, VStack } from 'native-base'
+import { router, useLocalSearchParams } from 'expo-router';
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Buttons, Card, ContainerHome } from '../../../../components'
-import { ATTENDANCE } from '../../../../constants';
-import { dateFormat } from '../../../../helpers/dateFormat';
+import { ALERT, ATTENDANCE } from '../../../../constants';
+import { AWSdate, dateFormat } from '../../../../helpers/dateFormat';
 import getStyleHeader from '../../../../helpers/getStyleHeader';
 import getDataUsersEnsayos from '../../../../store/actions/ensayos/getDataUsersEnsayos';
+import { showAlertThunk } from '../../../../store/actions/systemThunk';
+import registrarEnsayo from '../../../../store/actions/ensayos/registrarEnsayo';
+import { cambiarFecha } from '../../../../store/reducer/ensayos';
 
 
 const initialState = [
@@ -27,56 +30,60 @@ const initialState = [
   }
 ];
 
-const ListHeaderComponent = ({ date, showDatePicker, handleSubmit }) => {
+const ListHeaderComponent = ({ date, showDatePicker, disableExcusa }) => {
 
   return (
     <Box mb={3}>
       <Box w={'full'} mb={3}>
         <Heading size={'2xl'}>Nuevo ensayo</Heading>
-        <Box>
-          <Text>Fecha:</Text>
-          <Heading>{dateFormat(date)}</Heading>
-        </Box>
+
+        <Card mx={1} mt={3}>
+          <HStack space="3" alignItems="center" justifyContent={"space-between"}>
+            <Box>
+              <Text>Fecha:</Text>
+              <Heading>{dateFormat(date)}</Heading>
+            </Box>
+            <IconButton
+              variant="solid"
+              icon={<Icon size="md" as={MaterialIcons} name="edit-calendar" color="white" />}
+              onPress={showDatePicker}
+
+            />
+          </HStack>
+        </Card>
+
       </Box>
 
       <HStack w={'full'} space={1} justifyContent={'center'} alignItems={"center"}>
 
-        {/* <Pressable
-          m={0}
-          onPress={showDatePicker}
-          bg={"white"}
-        // height={'container'}
+        <Buttons
+          size={"sm"}
+          variant={'outline'}
+          colorScheme="warning"
+          leftIcon={
+            <Icon as={MaterialCommunityIcons} name="file-edit-outline" />
+          }
+          onPress={() => router.push({
+            pathname: `./${ATTENDANCE.EXCUSA}`
+          })}
+          disabled={disableExcusa}
         >
-          {/* <Card height={'container'}> */}
+          Añadir Excusas
+        </Buttons>
 
-          {/* </Card> 
-        </Pressable> */}
-
-
-          <Buttons
-            size={"sm"}
-            variant={'outline'}
-            colorScheme="success"
-            leftIcon={
-              <Icon as={MaterialIcons} name="check" />
-            }
-            onPress={showDatePicker}
-          >
-            Añadir asistentes
-          </Buttons>
-
-          <Buttons
-            size={"sm"}
-            variant={'outline'}
-            colorScheme="warning"
-            leftIcon={
-              <Icon as={MaterialCommunityIcons} name="file-edit-outline" />
-            }
-            onPress={showDatePicker}
-            disabled={true}
-          >
-            Añadir Excusas
-          </Buttons>
+        <Buttons
+          size={"sm"}
+          variant={'outline'}
+          colorScheme="success"
+          leftIcon={
+            <Icon as={MaterialIcons} name="check" />
+          }
+          onPress={() => router.push({
+            pathname: `./${ATTENDANCE.ASISTENCIA}`
+          })}
+        >
+          Añadir Asistentes
+        </Buttons>
 
       </HStack>
 
@@ -86,9 +93,13 @@ const ListHeaderComponent = ({ date, showDatePicker, handleSubmit }) => {
 
 const DashboardRegistrosEnsayos = () => {
 
-  const { listAsistentes } = useSelector(({ ensayos }) => ensayos);
+  const { listAsistentes, fecha } = useSelector(({ ensayos }) => ensayos);
+  const { id, name } = useSelector(({ users }) => users);
+
+  const { tipo } = useLocalSearchParams();
 
   const [data, setData] = useState(initialState);
+  const [disableExcusa, setDisableExcusa] = useState(true);
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
 
@@ -103,22 +114,61 @@ const DashboardRegistrosEnsayos = () => {
     const { nativeEvent: { timestamp }, type } = date;
     setShow(false);
     if (type === 'set') {
-      setDate(new Date(timestamp));
+      const newDate = new Date(timestamp);
+      setDate(newDate);
+      dispatch(cambiarFecha({ fecha: newDate.toString() }))
+
+      if (newDate.getDay() !== 0) {
+        dispatch(showAlertThunk({
+          status: ALERT.WARNING,
+          message: "El día seleccionado no es un día domingo"
+        }));
+      }
     }
   }
 
   const handleSubmit = () => {
-    console.log({ data });
+    const info = {
+      listAsistentes,
+      fecha: date.toISOString().split('T')[0],
+      tipo,
+      registrador: {
+        id,
+        name
+      }
+    }
+
+    console.log(info);
+    dispatch(registrarEnsayo(info))
   }
 
   useEffect(() => {
+    setDate(new Date(fecha));
     if (listAsistentes.length === 0) {
       dispatch(getDataUsersEnsayos())
     }
   }, []);
 
   useEffect(() => {
-    // setData(listAsistentes);
+    if (listAsistentes.filter((item) => item.status === ATTENDANCE.ASISTENCIA).length > 0) {
+      const info = [
+        {
+          title: ATTENDANCE.ASISTENCIA,
+          data: listAsistentes.filter((item) => item.status === ATTENDANCE.ASISTENCIA)
+        },
+        {
+          title: ATTENDANCE.EXCUSA,
+          data: listAsistentes.filter((item) => item.status === ATTENDANCE.EXCUSA)
+        },
+        {
+          title: ATTENDANCE.INASISTENCIA,
+          data: listAsistentes.filter((item) => item.status === ATTENDANCE.FALSE)
+        }
+      ]
+      setDisableExcusa(false)
+      // console.log(info);
+      setData(info);
+    }
   }, [listAsistentes]);
 
   return (
@@ -133,7 +183,7 @@ const DashboardRegistrosEnsayos = () => {
         ListHeaderComponent={() => (
           <ListHeaderComponent
             date={date}
-            handleSubmit={handleSubmit}
+            disableExcusa={disableExcusa}
             showDatePicker={showDatePicker}
           />
         )}
@@ -175,7 +225,7 @@ const DashboardRegistrosEnsayos = () => {
                 <Icon as={MaterialCommunityIcons} name={icon.name} color={icon.color} size={'lg'} />
               </Center>
               <Box>
-                <Text fontSize={'lg'}>{item.name}</Text>
+                <Text fontSize={'lg'}>{item.fullname}</Text>
               </Box>
             </HStack>
           )
@@ -187,6 +237,26 @@ const DashboardRegistrosEnsayos = () => {
           </Box>
         )}
       />
+
+
+      <HStack
+        w={"full"}
+        pt={3}
+        space={2}
+        justifyContent={"center"}
+        borderTopWidth={1}
+        borderTopColor={"muted.200"}
+      >
+        <Buttons w={"45%"} variant={"outline"}>
+          Cancelar
+        </Buttons>
+
+        <Buttons w={"45%"} colorScheme={"success"}
+          onPress={handleSubmit}
+        >
+          Guardar registro
+        </Buttons>
+      </HStack>
 
       {show &&
         <DateTimePicker

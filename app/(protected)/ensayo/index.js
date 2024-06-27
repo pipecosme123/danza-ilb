@@ -3,7 +3,7 @@ import { Buttons, Card, ContainerHome } from '../../../components'
 import { Box, Fab, Flex, HStack, Heading, Icon, IconButton, Text } from 'native-base'
 import { MaterialIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { ATTENDANCE } from '../../../constants';
+import { ATTENDANCE, TIPOENSAYO } from '../../../constants';
 
 const ListaEnsayos = () => {
   return (
@@ -60,7 +60,7 @@ const ListaEnsayos = () => {
         onPress={() => router.push({
           pathname: '/ensayo/registrar/',
           params: {
-            type: ATTENDANCE.ASISTENCIA
+            tipo: TIPOENSAYO.ACTIVOS
           }
         })}
       />

@@ -5,6 +5,7 @@ const Card = ({ background = 'white', children, ...props }) => {
   return (
     <Box
       {...props}
+      mb={2}
       p={2}
       border="1"
       borderRadius={'md'}

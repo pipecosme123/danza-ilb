@@ -1,5 +1,19 @@
 {
   "api": {
+    "apidanzailb": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "registrarEnsayos"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "danzailb": {
       "dependsOn": [],
       "output": {
@@ -77,6 +91,22 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "registrarEnsayos": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "danzailb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -117,6 +147,22 @@
         {
           "category": "function",
           "resourceName": "addUserToGroup"
+        }
+      ]
+    },
+    "AMPLIFY_function_registrarEnsayos_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "registrarEnsayos"
+        }
+      ]
+    },
+    "AMPLIFY_function_registrarEnsayos_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "registrarEnsayos"
         }
       ]
     },

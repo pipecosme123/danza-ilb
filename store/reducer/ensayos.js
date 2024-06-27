@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  fecha: new Date().getTime(),
+  fecha: new Date().toString(),
   listAsistentes: [],
   asistentes: [],
   excusa: [],
@@ -20,14 +20,13 @@ export const ensayosSlice = createSlice({
       state.responsable = action.payload.responsable;
     },
     registrarAsistentes: (state, action) => {
-      state.asistentes.push(action.payload.asistentes);
+      state.asistentes = action.payload.asistentes;
     },
     resgistrarExcusas: (state, action) => {
-      state.inasistentes = action.payload.inasistentes;
       state.excusa = action.payload.excusa;
     },
     agragarListAsistentes: (state, action) => {
-      state.listAsistentes = action.payload.listAsistentes;
+      state.listAsistentes = [].concat(action.payload.listAsistentes);
     },
     limpiarRegistroEnsayos: (state) => {
       state.fecha = new Date().getTime();

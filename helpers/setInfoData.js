@@ -8,7 +8,7 @@ export default setDataUser = (info) => {
 
     arrayData.push({
       id: info[i].id,
-      fullName: `${info[i].nombres} ${apellido}`,
+      fullname: `${info[i].nombres} ${apellido}`,
       status: ATTENDANCE.FALSE
     })
   }

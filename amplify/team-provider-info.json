@@ -13,22 +13,19 @@
       "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amplify71327a0b6e5f4-staging-31f2e-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
-      "auth": {
-        "danzailb": {}
-      },
-      "api": {
-        "danzailb": {}
-      },
       "function": {
-        "addUserToGroup": {
-          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
-          "s3Key": "amplify-builds/addUserToGroup-6c587335787479497930-build.zip"
-        },
-        "statusAccountSignUp": {},
         "addUserToCsv": {
           "tableName": "Users-f475l4evvjghzgv3oihbpqwt6a-staging",
           "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
           "s3Key": "amplify-builds/addUserToCsv-4c38457478364d6d7555-build.zip"
+        },
+        "addUserToGroup": {
+          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
+          "s3Key": "amplify-builds/addUserToGroup-6c587335787479497930-build.zip"
+        },
+        "registrarEnsayos": {
+          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
+          "s3Key": "amplify-builds/registrarEnsayos-335048765547534d4656-build.zip"
         }
       },
       "storage": {
@@ -36,6 +33,13 @@
           "bucketName": "danzailb-storage-5638e50831f2e-staging",
           "region": "us-east-1"
         }
+      },
+      "auth": {
+        "danzailb": {}
+      },
+      "api": {
+        "danzailb": {},
+        "apidanzailb": {}
       }
     }
   }

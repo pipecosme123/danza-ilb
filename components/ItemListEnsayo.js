@@ -14,7 +14,7 @@ export class ItemListEnsayo extends PureComponent {
       <Box key={this.props.index} h={70} borderBottomWidth={.5} borderBottomColor={"gray.300"}>
         <HStack display={"flex"} justifyContent={"space-between"}>
           <View w={"100%"}>
-            <Text fontSize={25} color={"muted.600"} bold italic>{this.props.item.fullName}</Text>
+            <Text fontSize={25} color={"muted.600"} bold italic>{this.props.item.fullname}</Text>
             <Text fontSize={20} color={"muted.500"} italic>Cosme Vásquez</Text>
           </View>
 
