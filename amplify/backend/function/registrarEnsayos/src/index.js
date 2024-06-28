@@ -108,53 +108,56 @@ export const handler = async (event) => {
   }
   const newListAsistentes = changeStatus(data.listAsistentes)
   const input = formatDataRequest({ ...data, listAsistentes: newListAsistentes });
+  let response = {};
 
   try {
-    // const createEnsayo = await fetchPost({
-    //   type: TYPEFETCH.POST,
-    //   query: createEnsayos,
-    //   variables: { input }
-    // });
+    const createEnsayo = await fetchPost({
+      type: TYPEFETCH.POST,
+      query: createEnsayos,
+      variables: { input }
+    });
 
     const listUsuarios = await fetchPost({
       type: TYPEFETCH.GET,
       query: listUserss
     });
 
-    // console.log({ items: listUsuarios.body.data.listUserss.items });
+    const { id } = createEnsayo.body.data.createEnsayos;
 
     const lista = listUsuarios.body.data.listUserss.items.map(item => {
-      const addItem = newListAsistentes.filter(({ id }) => id === item.id)[0];
-      item.ensayos.push(JSON.stringify(addItem));
+      const { status } = newListAsistentes.filter(({ id }) => id === item.id)[0];
+      item.ensayos.push(JSON.stringify({
+        id,
+        registro: status
+      }));
       return item;
     });
 
-    console.log({ listUsuarios });
-    console.log({ lista });
+    const results = await Promise.allSettled(
+      lista.map(({ id, ensayos }) => fetchPost({
+        type: TYPEFETCH.POST,
+        query: updateUsers,
+        variables: {
+          input: { id, ensayos }
+        }
+      }))
+    );
 
-    // const { id } = createEnsayo.body.data.createEnsayos;
+    const newResult = results.map(({ value }) => {
+      if (value.statusCode !== 200) {
+        const { nombres, apellidos } = value.body.data.updateUsers;
+        return `Hubo un error al registrar la asistencia de ${nombres} ${apellidos}`
+      }
+      return null
+    }).filter(item => item !== null)
 
-    // const results = await Promise.allSettled(
-    //   newListAsistentes.map(asistentes => fetchPost({
-    //     type: TYPEFETCH.POST,
-    //     query: updateUsers,
-    //     variables: {
-    //       input: {
-    //         id: asistentes.id,
-    //         ensayos: JSON.stringify({
-    //           id,
-    //           registro: asistentes.status
-    //         })
-    //       }
-    //     }
-    //   }))
-    // );
-
+    const statusCode = newResult.length === 0 ? 200 : 207;
+    const body = statusCode === 200 ? { message: "Se ha registrado el ensayo correctamente" } : { message: "Se ha registrado el ensayo correctamente, pero hubieron asistencias que no se registraron correctamente", results: newResult };
 
 
     return {
-      statusCode: listUsuarios.statusCode,
-      body: JSON.stringify({ lista })
+      statusCode: statusCode,
+      body: JSON.stringify({ body })
     };
 
 

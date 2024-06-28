@@ -25,7 +25,7 @@
         },
         "registrarEnsayos": {
           "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
-          "s3Key": "amplify-builds/registrarEnsayos-335048765547534d4656-build.zip"
+          "s3Key": "amplify-builds/registrarEnsayos-37763961714574753361-build.zip"
         }
       },
       "storage": {

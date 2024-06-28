@@ -14,7 +14,7 @@ const LayoutHome = () => {
 
   return (
     <>
-      {location === '/' ? <HeaderHome /> : <HeaderBack />}
+      {location !== '/response' ? location === '/' ? <HeaderHome /> : <HeaderBack /> : null}
       <Box
         h={'full'}
         mb={"40px"}

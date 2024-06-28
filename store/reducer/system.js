@@ -6,6 +6,10 @@ const initialState = {
   alert: {
     status: null,
     message: null
+  },
+  response: {
+    message: '',
+    results: null
   }
 }
 
@@ -27,8 +31,15 @@ export const systemSlice = createSlice({
       state.alert.status = initialState.alert.status;
       state.alert.message = initialState.alert.message;
     },
-    setCodeTime: (state, action)=>{
-      state.codeTime= action.payload.sendCodeTime
+    setCodeTime: (state, action) => {
+      state.codeTime = action.payload.sendCodeTime;
+    },
+    setResponse: (state, action) => {
+      state.response.message = action.payload.message;
+      state.response.results = action.payload.results;
+    },
+    clearResponse: (state) => {
+      state.response = initialState.response;
     }
   }
 })

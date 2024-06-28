@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Text, Heading, IconButton, HStack, Pressable } from 'native-base'
 import { AntDesign } from "@expo/vector-icons";
 import capitalizeEachWord from '../../helpers/capitalizeEachWord';
-import { Card, ContainerHome } from '../../components';
+import { Buttons, Card, ContainerHome } from '../../components';
 import { Link, router } from 'expo-router';
 
 const Home = () => {
@@ -46,7 +46,9 @@ const Home = () => {
       </Pressable>
 
 
-
+      <Buttons
+        onPress={() => router.push('/response')}
+      >Response</Buttons>
       <Card>
         <Heading>Ministros</Heading>
       </Card>

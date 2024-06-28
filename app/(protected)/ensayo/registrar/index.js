@@ -138,7 +138,6 @@ const DashboardRegistrosEnsayos = () => {
       }
     }
 
-    console.log(info);
     dispatch(registrarEnsayo(info))
   }
 

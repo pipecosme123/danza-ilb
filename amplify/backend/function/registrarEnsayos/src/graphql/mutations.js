@@ -5,6 +5,8 @@ export const updateUsers = /* GraphQL */ `
   ) {
     updateUsers(input: $input, condition: $condition) {
       id
+      nombres
+      apellidos
       ensayos
       updatedAt
     }

@@ -1,5 +1,4 @@
 import { post } from "aws-amplify/api";
-import { useSelector } from "react-redux";
 import { ALERT } from "../../../constants";
 import { startLoading, stopLoading } from "../../reducer/system"
 import { showAlertThunk } from "../systemThunk";
@@ -18,10 +17,6 @@ export default registrarEnsayo = (data) => {
         }
       });
 
-      // console.log({ data. });
-
-      // const body = await restOperation.response;
-      // console.log(body);
       const { body } = await restOperation.response;
       const response = await body.json();
 
