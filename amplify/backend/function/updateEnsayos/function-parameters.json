@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "danzailb": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

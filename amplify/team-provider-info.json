@@ -25,7 +25,15 @@
         },
         "registrarEnsayos": {
           "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
-          "s3Key": "amplify-builds/registrarEnsayos-37763961714574753361-build.zip"
+          "s3Key": "amplify-builds/registrarEnsayos-72786b6d727431314858-build.zip"
+        },
+        "updateEnsayos": {
+          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
+          "s3Key": "amplify-builds/updateEnsayos-334d6f57423550684156-build.zip"
+        },
+        "deleteEnsayo": {
+          "deploymentBucketName": "amplify-amplify71327a0b6e5f4-staging-31f2e-deployment",
+          "s3Key": "amplify-builds/deleteEnsayo-5947696352675a583970-build.zip"
         }
       },
       "storage": {
@@ -38,8 +46,8 @@
         "danzailb": {}
       },
       "api": {
-        "danzailb": {},
-        "apidanzailb": {}
+        "apidanzailb": {},
+        "danzailb": {}
       }
     }
   }

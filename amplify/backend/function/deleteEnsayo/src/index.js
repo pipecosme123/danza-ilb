@@ -8,15 +8,14 @@ Amplify Params - DO NOT EDIT */
 
 import { default as fetch, Request } from 'node-fetch';
 
-import { updateUsers, createEnsayos } from '/var/task/graphql/mutations.js';
+import { updateUsers, deleteEnsayos } from '/var/task/graphql/mutations.js';
 import { listUserss } from '/var/task/graphql/queries.js';
-import { formatDataRequest } from '/var/task/formatDataRequest.js';
-import { changeStatus } from '/var/task/changeStatus.js';
+import { deleteEnsayoUsers } from '/var/task/helpers/deleteEnsayoUsers.js';
 
 const GRAPHQL_ENDPOINT = process.env.API_DANZAILB_GRAPHQLAPIENDPOINTOUTPUT;
 const GRAPHQL_API_KEY = process.env.API_DANZAILB_GRAPHQLAPIKEYOUTPUT;
 
-const fetchPost = async ({ type, query, variables }) => {
+const fetchPost = async ({ query, variables }) => {
 
   const options = {
     method: 'POST',
@@ -89,61 +88,49 @@ export const handler = async (event) => {
     };
   }
 
-  const newListAsistentes = changeStatus(data.listAsistentes)
-  const input = formatDataRequest({ ...data, listAsistentes: newListAsistentes });
-
   try {
-    const createEnsayo = await fetchPost({
-      query: createEnsayos,
-      variables: { input }
+    const { id } = data;
+
+    await fetchPost({
+      query: deleteEnsayos,
+      variables: { input: { id } }
     });
 
-    const listUsuarios = await fetchPost({
+    const listUsers = await fetchPost({
       query: listUserss
     });
 
-    const { id } = createEnsayo.body.data.createEnsayos;
-
-    const lista = listUsuarios.body.data.listUserss.items.map(item => {
-      const { status } = newListAsistentes.filter(({ id }) => id === item.id)[0];
-      item.ensayos.push(JSON.stringify({
-        id,
-        registro: status
-      }));
-      return item;
-    });
+    const newList = deleteEnsayoUsers({ listUsers, id });
 
     const results = await Promise.allSettled(
-      lista.map(({ id, ensayos }) => fetchPost({
+      newList.map(item => fetchPost({
         query: updateUsers,
-        variables: {
-          input: { id, ensayos }
-        }
-      }))
-    );
+        variables: { input: item }
+      })
+      )
+    )
 
     const newResult = results.map(({ value }) => {
       if (value.statusCode !== 200) {
         const { nombres, apellidos } = value.body.data.updateUsers;
-        return `Hubo un error al registrar la asistencia de ${nombres} ${apellidos}`
+        return `Hubo un error al eliminar la asistencia de ${nombres} ${apellidos}`
       }
       return null
     }).filter(item => item !== null)
 
     const statusCode = newResult.length === 0 ? 200 : 207;
-    const body = statusCode === 200 ? { message: "Se ha registrado el ensayo correctamente" } : { message: "Se ha registrado el ensayo correctamente, pero hubieron asistencias que no se registraron correctamente", results: newResult };
+    const body = statusCode === 200 ? { message: "Se ha eliminado el ensayo correctamente" } : { message: "Se ha eliminado el ensayo correctamente, pero hubieron asistencias que no se han eliminado correctamente", results: newResult };
 
 
     return {
       statusCode: statusCode,
-      body: JSON.stringify({ ...body, id })
+      body: JSON.stringify({ body })
     };
-
 
   } catch (error) {
     return {
       statusCode: error.statusCode,
       body: JSON.stringify(error.body)
-    };
+    }
   }
 };

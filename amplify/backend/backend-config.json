@@ -92,7 +92,39 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteEnsayo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "danzailb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "registrarEnsayos": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "danzailb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "updateEnsayos": {
       "build": true,
       "dependsOn": [
         {
@@ -150,6 +182,22 @@
         }
       ]
     },
+    "AMPLIFY_function_deleteEnsayo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEnsayo"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteEnsayo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteEnsayo"
+        }
+      ]
+    },
     "AMPLIFY_function_registrarEnsayos_deploymentBucketName": {
       "usedBy": [
         {
@@ -163,6 +211,22 @@
         {
           "category": "function",
           "resourceName": "registrarEnsayos"
+        }
+      ]
+    },
+    "AMPLIFY_function_updateEnsayos_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "updateEnsayos"
+        }
+      ]
+    },
+    "AMPLIFY_function_updateEnsayos_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "updateEnsayos"
         }
       ]
     },

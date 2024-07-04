@@ -6,17 +6,28 @@
   REGION
 Amplify Params - DO NOT EDIT */
 
+// import crypto from '@aws-crypto/sha256-js';
+// import { defaultProvider } from '@aws-sdk/credential-provider-node';
+// import { SignatureV4 } from '@aws-sdk/signature-v4';
+// import { HttpRequest } from '@aws-sdk/protocol-http';
 import { default as fetch, Request } from 'node-fetch';
 
-import { updateUsers, createEnsayos } from '/var/task/graphql/mutations.js';
-import { listUserss } from '/var/task/graphql/queries.js';
-import { formatDataRequest } from '/var/task/formatDataRequest.js';
-import { changeStatus } from '/var/task/changeStatus.js';
+import { updateUsers, updateEnsayos } from '/var/task/graphql/mutations.js';
+import { listUserss, getEnsayos } from '/var/task/graphql/queries.js';
+import { formatDataRequest } from '/var/task/helpers/formatDataRequest.js';
+import { changeStatus } from '/var/task/helpers/changeStatus.js';
 
 const GRAPHQL_ENDPOINT = process.env.API_DANZAILB_GRAPHQLAPIENDPOINTOUTPUT;
 const GRAPHQL_API_KEY = process.env.API_DANZAILB_GRAPHQLAPIKEYOUTPUT;
+// const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+// const { Sha256 } = crypto;
 
-const fetchPost = async ({ type, query, variables }) => {
+const TYPEFETCH = Object.freeze({
+  POST: "post",
+  GET: "get"
+})
+
+const fetchPost = async ({ query, variables }) => {
 
   const options = {
     method: 'POST',
@@ -36,6 +47,8 @@ const fetchPost = async ({ type, query, variables }) => {
     const response = await fetch(request);
     const body = await response.json();
 
+    console.log({ body: body.data.updateUsers });
+
     if (body.errors) {
       throw {
         statusCode: 400,
@@ -51,15 +64,13 @@ const fetchPost = async ({ type, query, variables }) => {
   } catch (error) {
     console.log({ error: error.body });
     throw {
-      statusCode: error.statusCode || 400,
+      statusCode: error.statusCode,
       body: {
-        errors: [
-          {
-            status: error.body.path || response.status,
-            message: error.body.message || error.message,
-            stack: error.body.locations || error.stack
-          }
-        ]
+        errors: {
+          status: error.body.path,
+          message: error.body.message,
+          stack: error.body.locations
+        }
       }
     };
   }
@@ -68,7 +79,6 @@ const fetchPost = async ({ type, query, variables }) => {
 export const handler = async (event) => {
 
   let info;
-
   try {
     // info = typeof event === "string" ? JSON.parse(event) : event;
     info = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
@@ -79,7 +89,6 @@ export const handler = async (event) => {
     };
   }
 
-
   const { data } = info;
 
   if (!data) {
@@ -89,32 +98,52 @@ export const handler = async (event) => {
     };
   }
 
-  const newListAsistentes = changeStatus(data.listAsistentes)
-  const input = formatDataRequest({ ...data, listAsistentes: newListAsistentes });
-
   try {
-    const createEnsayo = await fetchPost({
-      query: createEnsayos,
+    const getEnsayo = await fetchPost({
+      type: TYPEFETCH.GET,
+      query: getEnsayos,
+      variables: {
+        id: data.id
+      }
+    });
+
+    const dataRegistrador = getEnsayo.body.data.getEnsayos.registrador;
+    const newListAsistentes = changeStatus(data.listAsistentes);
+    const input = formatDataRequest({ ...data, listAsistentes: newListAsistentes, dataRegistrador });
+
+    const updateEnsayo = await fetchPost({
+      type: TYPEFETCH.POST,
+      query: updateEnsayos,
       variables: { input }
     });
 
     const listUsuarios = await fetchPost({
+      type: TYPEFETCH.GET,
       query: listUserss
     });
 
-    const { id } = createEnsayo.body.data.createEnsayos;
+    const { id } = updateEnsayo.body.data.updateEnsayos;
 
     const lista = listUsuarios.body.data.listUserss.items.map(item => {
+
+      const index = item.ensayos.findIndex(ensayo => ensayo.includes(id))
+      const ensayo = JSON.parse(item.ensayos[index]);
       const { status } = newListAsistentes.filter(({ id }) => id === item.id)[0];
-      item.ensayos.push(JSON.stringify({
-        id,
-        registro: status
-      }));
+
+      if (ensayo.registro === status) {
+        return null;
+      }
+
+      ensayo.registro = status;
+      item.ensayos[index] = JSON.stringify(ensayo);
       return item;
+
     });
 
+    const changes = lista.filter(item => item !== null);
+
     const results = await Promise.allSettled(
-      lista.map(({ id, ensayos }) => fetchPost({
+      changes.map(({ id, ensayos }) => fetchPost({
         query: updateUsers,
         variables: {
           input: { id, ensayos }
@@ -122,21 +151,26 @@ export const handler = async (event) => {
       }))
     );
 
+    // return {
+    //   statusCode: listUsuarios.statusCode,
+    //   body: JSON.stringify(results)
+    // };
+
     const newResult = results.map(({ value }) => {
       if (value.statusCode !== 200) {
         const { nombres, apellidos } = value.body.data.updateUsers;
-        return `Hubo un error al registrar la asistencia de ${nombres} ${apellidos}`
+        return `Hubo un error al modificar la asistencia de ${nombres} ${apellidos}`
       }
       return null
     }).filter(item => item !== null)
 
     const statusCode = newResult.length === 0 ? 200 : 207;
-    const body = statusCode === 200 ? { message: "Se ha registrado el ensayo correctamente" } : { message: "Se ha registrado el ensayo correctamente, pero hubieron asistencias que no se registraron correctamente", results: newResult };
+    const body = statusCode === 200 ? { message: "Se ha actualizado el ensayo correctamente" } : { message: "Se ha actualizado el ensayo correctamente, pero hubieron asistencias que no se actualizado correctamente", results: newResult };
 
 
     return {
       statusCode: statusCode,
-      body: JSON.stringify({ ...body, id })
+      body: JSON.stringify({ body })
     };
 
 
@@ -146,4 +180,5 @@ export const handler = async (event) => {
       body: JSON.stringify(error.body)
     };
   }
+
 };

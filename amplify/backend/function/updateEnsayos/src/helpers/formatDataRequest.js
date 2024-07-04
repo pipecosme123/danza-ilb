@@ -6,16 +6,16 @@ const ATTENDANCE = Object.freeze({
 
 export const formatDataRequest = (data) => {
 
-  const { fecha, tipo, listAsistentes } = data;
+  const { id, fecha, tipo, listAsistentes, dataRegistrador } = data;
 
-  const registrador = [];
+  // const registrador = [];
 
   const asistencia = listAsistentes.filter(({ status }) => status === ATTENDANCE.ASISTENCIA).map(({ id, fullname }) => JSON.stringify({ id, fullname, fecha }));
   const excusas = listAsistentes.filter(({ status }) => status === ATTENDANCE.EXCUSA).map(({ id, fullname }) => JSON.stringify({ id, fullname, fecha }));
   const inasistencias = listAsistentes.filter(({ status }) => status === ATTENDANCE.INASISTENCIA).map(({ id, fullname }) => JSON.stringify({ id, fullname, fecha }));
-  const dataRegistrador = JSON.stringify({
+  const dataRegistador = JSON.stringify({
     ...data.registrador,
-    action: "create",
+    action: "update",
     fecha: new Date().getTime()
   });
   const estadistica = JSON.stringify({
@@ -24,15 +24,16 @@ export const formatDataRequest = (data) => {
     inasistencias: inasistencias.length,
   })
 
-  registrador.push(dataRegistrador);
+  dataRegistrador.push(dataRegistador);
 
   return {
+    id,
     fecha,
     tipo,
     asistencia,
     excusas,
     inasistencias,
-    registrador,
+    registrador: dataRegistrador,
     estadistica,
   }
 }
