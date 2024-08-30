@@ -9,9 +9,7 @@ export const listUsersEnsayo = /* GraphQL */ `
         id
         nombres
         apellidos
-        e_asistencia
-        e_excusa
-        e_inasistencia
+        ensayos
       }
       nextToken
       __typename

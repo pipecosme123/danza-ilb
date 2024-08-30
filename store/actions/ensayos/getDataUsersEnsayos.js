@@ -17,7 +17,7 @@ export default getDataUsersEnsayos = () => {
       dispatch(agragarListAsistentes({ listAsistentes }));
 
     } catch (error) {
-      console.log({getDataUsersEnsayos: error});
+      console.log({getDataUsersEnsayos: error.errors});
     } finally {
       dispatch(stopLoading());
     }
